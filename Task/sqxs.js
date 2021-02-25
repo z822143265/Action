@@ -490,7 +490,7 @@ function userinfo() {
 }
 
 
-async function showmsg(){
+function showmsg(){
 
 		$.log("【阅读任务】本次共获得"+ReadTimes*3+"金币");
 		$.log("【视频任务】本次共获得"+vediogold+"金币");
