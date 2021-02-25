@@ -232,7 +232,7 @@ function readbook() {
 		{
 			ReadTimes++;
 			$.log("【阅读任务】第"+ReadTimes+"次阅读成功，获得3金币");
-			await $.wait(5000);
+			await $.wait(8500);
 			await readbook();
 		}
 		 else
@@ -394,10 +394,10 @@ function withdrawinfo(k) {
 	$.post(request, async(error, request, data) =>{
       try {
 		const result=JSON.parse(data)
-		//$.log(data);
+		$.log(data);
 		if(result.status==200)
 		{
-			ableCash +=parseInt(result.data.withdrawableCash);
+			ableCash = result.data.withdrawableCash
 			$.log("【账户信息】 可提现金额: "+result.data.withdrawableCash + '元');
 			await $.wait(5000);
 
@@ -406,7 +406,7 @@ function withdrawinfo(k) {
 				$.log("已经可以提现了。");
 				await withdraw(k);
 			}else {
-				$.log("暂不可提现，需要阅读8分钟才获取资格。");
+				$.log("暂不可提现。");
 			}
 
 		}
@@ -468,12 +468,12 @@ function userinfo() {
 
 	$.post(request, async(error, request, data) =>{
       try {
-		  $.log(data);
+		  //$.log(data);
 		  const result=JSON.parse(data);
 		if(result.status==200)
 		{
-			todaygold +=parseInt(result.data.gold);
-			hsincome +=parseInt(result.data.income);
+			todaygold = result.data.gold
+			hsincome = result.data.income
 		}
 		 else
 		 {
@@ -501,7 +501,7 @@ async function showmsg(){
 		$.log(areyouOK);
 		$.log(yesok);
 
-		if(tellme == 1 ){
+		if(tellme == 0 ){
 
 			notify.sendNotify(`@提现啦@ ${$.name}-账号${$.index}` , "【阅读任务】本次共获得"+ReadTimes*3+"金币\n"+"【视频任务】本次共获得"+vediogold+"金币\n"+"【抽奖任务】本次共获得"+drawgold+"金币\n"+"【金币总数】"+todaygold+"金币\n"+"【历史累计收益】"+hsincome+"元\n"+"【账户信息】 可提现金额: "+ableCash + '元\n' + areyouOK +'\n'+ yesok)
 
