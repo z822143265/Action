@@ -74,7 +74,7 @@ if(url.indexOf('activity/xapi/gold/withdraw/info')!=-1)
 	if(url)
 	{
 		$.msg('书旗小说'+ $.idx,'获取账户信息成功');
-		$.msg('书旗小说'+ $.idx,'获取账户信息成功headers' + headers);
+		//$.msg('书旗小说'+ $.idx,'获取账户信息成功headers' + headers);
 		let zhurl=url;
 		let zhhd=headers;
 		let zhbd=body;

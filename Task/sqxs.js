@@ -155,6 +155,13 @@ async function all()
 				vediodrawprizeckArr= $.getdata(`vediodrawprizeck${i}`).split('&&');
 				drawckArr= $.getdata(`drawck${i}`).split('&&');
 				userinfock=$.getdata(`userinfock${i}`);
+				zhurl=$.getdata(`zhurl${i}`);
+				zhhd=$.getdata(`zhhd${i}`);
+				zhbd=$.getdata(`zhbd${i}`);
+				withdrawurl=$.getdata(`withdrawurl${i}`);
+				withdrawhd=$.getdata(`withdrawhd${i}`);
+				withdrawbd=$.getdata(`withdrawbd${i}`);
+
 				$.log('\n============ 【书旗小说'+i+'】=============');
 				ReadTimes=0;
 				vediogold=0;
@@ -174,6 +181,9 @@ async function all()
 
 				//个人信息
 				await userinfo();
+
+				//个人账户
+				await withdrawinfo();
 			}
 		}
 
