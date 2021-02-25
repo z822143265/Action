@@ -128,11 +128,11 @@ async function all()
 				//看视频奖励抽奖次数
 				await vediodrawprize(0);
 
-				//个人账户
-				await withdrawinfo();
-
 				//个人信息
 				await userinfo();
+
+				//个人账户
+				await withdrawinfo();
 			}
 		}
 
