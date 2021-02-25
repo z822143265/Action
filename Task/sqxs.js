@@ -394,7 +394,7 @@ function withdrawinfo(k) {
 	$.post(request, async(error, request, data) =>{
       try {
 		const result=JSON.parse(data)
-		$.log(data);
+		//$.log(data);
 		if(result.status==200)
 		{
 			ableCash = result.data.withdrawableCash
@@ -502,6 +502,7 @@ function showmsg(){
 		$.log(yesok);
 
 		if(tellme == 0 ){
+
 
 			notify.sendNotify(`@提现啦@ ${$.name}-账号${$.index}` , "【阅读任务】本次共获得"+ReadTimes*3+"金币\n"+"【视频任务】本次共获得"+vediogold+"金币\n"+"【抽奖任务】本次共获得"+drawgold+"金币\n"+"【金币总数】"+todaygold+"金币\n"+"【历史累计收益】"+hsincome+"元\n"+"【账户信息】 可提现金额: "+ableCash + '元\n' + areyouOK +'\n'+ yesok)
 
