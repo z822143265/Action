@@ -70,7 +70,7 @@ if(url.indexOf('activity/xapi/gold/withdraw/info')!=-1)
 {
 	var url = $request.url;
 	var body = $request.body;
-	var headers = JSON.parse($request.headers);
+	var headers = JSON.stringify($request.headers);
 	if(url)
 	{
 		$.msg('书旗小说'+ $.idx,'获取账户信息成功');
@@ -88,7 +88,7 @@ if(url.indexOf('activity/xapi/gold/withdraw?asac')!=-1)
 {
 	var url = $request.url;
 	var body = $request.body;
-	var headers = JSON.parse($request.headers);
+	var headers = JSON.stringify($request.headers);
 	if(url)
 	{
 		$.msg('书旗小说'+ $.idx,'获取提现信息成功');
