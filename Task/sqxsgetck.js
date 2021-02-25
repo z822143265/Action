@@ -66,7 +66,7 @@ if(url.indexOf('activity/xapi/gold/record')!=-1)
 	}
 }
 
-if(url.indexOf('api/activity/xapi/gold/withdraw/info')!=-1)
+if(url.indexOf('activity/xapi/gold/withdraw/info')!=-1)
 {
 	var url = $request.url;
 	var body = $request.body;
@@ -83,7 +83,7 @@ if(url.indexOf('api/activity/xapi/gold/withdraw/info')!=-1)
 	}
 }
 
-if(url.indexOf('api/activity/xapi/gold/withdraw')!=-1)
+if(url.indexOf('activity/xapi/gold/withdraw?asac')!=-1)
 {
 	var url = $request.url;
 	var body = $request.body;
