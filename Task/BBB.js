@@ -1315,7 +1315,7 @@ if(cash.jinbi >= 500000){
      tip = 50
       await withDraw()
      }else if(cash.day_jinbi > 5000){
-     tip = 1
+     tip = 0.3
       await withDraw()
      }
            }

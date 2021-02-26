@@ -95,8 +95,10 @@ async function all()
 	//nodejs运行
 	if ($.isNode())
 	{
+		for (let i = 1; i < 3; i++){
+			let sqxsck = require('./sqxsck'+i+'.json');
+		}
 
-		let sqxsck = require('./sqxsck.json');
 		let CountNumber =sqxsck.settings[1].val;
 		$.log(`============ 共 ${CountNumber} 个${jobname}账号=============`);
 		for (let i = 0; i < CountNumber; i++)
