@@ -6,7 +6,7 @@ name: sqxs书旗小说
 on:
   workflow_dispatch:
   schedule:
-     - cron: '35 0-16 * * *'
+     - cron: '35 1,6,11 * * *'
   watch:
     types: started
 #env:
