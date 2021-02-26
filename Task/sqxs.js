@@ -95,9 +95,9 @@ async function all()
 	//nodejs运行
 	if ($.isNode())
 	{
-		for (let i = 1; i < 3; i++){
-			let sqxsck = require('./sqxsck'+i+'.json');
-		}
+		for (let w = 1; w < 3; w++){
+			let sqxsck = require('./sqxsck'+w+'.json');
+		
 
 		let CountNumber =sqxsck.settings[1].val;
 		$.log(`============ 共 ${CountNumber} 个${jobname}账号=============`);
@@ -151,7 +151,7 @@ async function all()
 				await showmsg();
 			}
 		}
-
+		}
 
 	}
 	//QX运行
