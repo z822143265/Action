@@ -1,5 +1,5 @@
 
-const $ = new Env('书旗小说获取ck')
+const $ = new Env('shu旗小说获取ck')
 $.idx =$.getval('sqxs');
 var url = $request.url;
 
@@ -9,7 +9,7 @@ if(url.indexOf('/ad/v1/api/prize/readpage/pendant/lottery')!=-1)
 	var headers = $request.headers;
 	if(body&&headers)
 	{
-		$.msg('书旗小说'+ $.idx,'获取阅读ck成功');
+		$.msg('shu旗小说'+ $.idx,'获取阅读ck成功');
 
 		let readck=body+'&&'+JSON.stringify(headers);
 		$.setdata(readck ,'readck'+ $.idx)
@@ -21,7 +21,7 @@ if(url.indexOf('/prizecenter/xapi/prize/manual/receive')!=-1)
 	var headers = $request.headers;
 	if(body&&headers)
 	{
-		$.msg('书旗小说'+ $.idx,'获取收集金币ck成功');
+		$.msg('shu旗小说'+ $.idx,'获取收集金币ck成功');
 		let receivecoinck=body+'&&'+JSON.stringify(headers);
 		$.setdata(receivecoinck ,'receivecoinck'+ $.idx)
 	}
@@ -32,13 +32,13 @@ if(url.indexOf('/ad/v1/api/prize/lottery')!=-1)
 	var headers = $request.headers;
 	if(body.indexOf('deliveryId=525')!=-1&&headers)
 	{
-		$.msg('书旗小说'+ $.idx,'获取视频金币奖励ck成功');
+		$.msg('shu旗小说'+ $.idx,'获取视频金币奖励ck成功');
 		let vediogoldprizeck=body+'&&'+JSON.stringify(headers);
 		$.setdata(vediogoldprizeck ,'vediogoldprizeck'+ $.idx)
 	}
 	if(body.indexOf('deliveryId=711')!=-1&&headers)
 	{
-		$.msg('书旗小说'+ $.idx,'获取视频抽奖奖励ck成功');
+		$.msg('shu旗小说'+ $.idx,'获取视频抽奖奖励ck成功');
 		let vediodrawprizeck=body+'&&'+JSON.stringify(headers);
 		$.setdata(vediodrawprizeck ,'vediodrawprizeck'+ $.idx)
 	}
@@ -50,7 +50,7 @@ if(url.indexOf('activity/activity/v1/lottery/draw')!=-1)
 	var headers = $request.headers;
 	if(body&&headers)
 	{
-		$.msg('书旗小说'+ $.idx,'获取抽奖ck成功');
+		$.msg('shu旗小说'+ $.idx,'获取抽奖ck成功');
 		let drawck=body+'&&'+JSON.stringify(headers);
 		$.setdata(drawck ,'drawck'+ $.idx)
 	}
@@ -60,7 +60,7 @@ if(url.indexOf('activity/xapi/gold/record')!=-1)
 	var url = $request.url;
 	if(url)
 	{
-		$.msg('书旗小说'+ $.idx,'获取用户信息url成功');
+		$.msg('shu旗小说'+ $.idx,'获取用户信息url成功');
 		let userinfock=url;
 		$.setdata(userinfock ,'userinfock'+ $.idx)
 	}
@@ -73,8 +73,8 @@ if(url.indexOf('activity/xapi/gold/withdraw/info')!=-1)
 	var headers = JSON.stringify($request.headers);
 	if(url)
 	{
-		$.msg('书旗小说'+ $.idx,'获取账户信息成功');
-		//$.msg('书旗小说'+ $.idx,'获取账户信息成功headers' + headers);
+		$.msg('shu旗小说'+ $.idx,'获取账户信息成功');
+		//$.msg('shu旗小说'+ $.idx,'获取账户信息成功headers' + headers);
 		let zhurl=url;
 		let zhhd=headers;
 		let zhbd=body;
@@ -91,7 +91,7 @@ if(url.indexOf('activity/xapi/gold/withdraw?asac')!=-1)
 	var headers = JSON.stringify($request.headers);
 	if(url)
 	{
-		$.msg('书旗小说'+ $.idx,'获取提现信息成功');
+		$.msg('shu旗小说'+ $.idx,'获取提现信息成功');
 		let withdrawurl=url;
 		let withdrawhd=headers;
 		let withdrawbd=body;

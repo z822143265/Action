@@ -1,7 +1,7 @@
 /*
-脚本名称："书旗小说多账户号稳定版";
+脚本名称："shu旗小说多账户号稳定版";
 适用版本：verson 4.3.2或者4.3.3 ;
-作者：caixukun;
+作者：caixukun; hcc修改
 
 
 【注意事项】：
@@ -35,21 +35,9 @@ https://ocean.shuqireader.com/api/activity/xapi/gold/withdraw/info url script-re
 https://ocean.shuqireader.com/api/activity/xapi/gold/withdraw url script-request-body https://raw.githubusercontent.com/adw2s/Action/main/Task/sqxsgetck.js
 
 [task_local]
-0 12 * * * https://raw.githubusercontent.com/adw2s/Action/main/Task/sqxs.js, tag=书旗小说, enabled=true
+0 12 * * * https://raw.githubusercontent.com/adw2s/Action/main/Task/sqxs.js, tag=shu旗小说, enabled=true
 
 boxjs：https://raw.githubusercontent.com/adw2s/Action/main/Task/sqxs.boxjs.json
-
-共6个ck，打开书旗小说
-1.点击 我的-去赚钱-去看书，随便阅读一本书，金币转一圈获得 阅读ck;
-
-2.点击 我的-去赚钱-一键收取，获得 收集金币ck;
-
-3.点击 我的-去赚钱-看视频赚2500金币，看一个视频广告获得 视频金币奖励ck;
-
-4.点击 我的-去赚钱-福利转转转-看视频抽奖，获得 视频抽奖奖励ck 和 抽奖ck;
-
-5 点击 我的-去赚钱-记录,获得 用户信息url;
-
 
 
 */
@@ -58,7 +46,7 @@ boxjs：https://raw.githubusercontent.com/adw2s/Action/main/Task/sqxs.boxjs.json
 
 
 
-const jobname='书旗小说'
+const jobname='shu旗小说'
 const $=Env(jobname)
 const notify = $.isNode() ?require('./sendNotify') : '';
 
@@ -97,7 +85,7 @@ async function all()
 	{
 		for (let w = 1; w < 3; w++){
 			let sqxsck = require('./sqxsck'+w+'.json');
-		
+
 
 		let CountNumber =sqxsck.settings[1].val;
 		$.log(`============ 共 ${CountNumber} 个${jobname}账号=============`);
@@ -118,7 +106,7 @@ async function all()
 				withdrawhd=sqxsck.datas[10+12*i].val;
 				withdrawbd=sqxsck.datas[11+12*i].val;
 
-				$.log(`\n============ 【书旗小说${i+1}】=============`);
+				$.log(`\n============ 【shu旗小说${i+1}】=============`);
 				ReadTimes=0;
 				vediogold=0;
 				drawgold=0;
@@ -178,7 +166,7 @@ async function all()
 				withdrawhd=$.getdata(`withdrawhd${i}`);
 				withdrawbd=$.getdata(`withdrawbd${i}`);
 
-				$.log('\n============ 【书旗小说'+i+'】=============');
+				$.log('\n============ 【shu旗小说'+i+'】=============');
 				ReadTimes=0;
 				vediogold=0;
 				drawgold=0;

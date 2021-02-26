@@ -1,11 +1,11 @@
 {
     "id": "cxk.app.sub",
-    "name": "书旗脚本",
-    "author": "书旗脚本",
+    "name": "shu旗脚本",
+    "author": "shu旗脚本",
     "apps": [
 		{
             "id":"sqxh",
-            "name":"书旗小说",
+            "name":"shu旗小说",
             "keys":[
                 "readck1",
 				"receivecoinck1",
