@@ -44,13 +44,13 @@ $.msg($.name,"开始🎉🎉🎉")
 
       //await cashCheck() ok
       //await signIn()  明天获取url
-      //await checkWaterNum() ok
-      //await zaoWanDkInfo() ok
+      //await checkWaterNum() //喝水ok
+      //await zaoWanDkInfo() //早晚打卡ok
       //await sleepStatus()   晚上再测试
       //await clickTaskStatus()  ==
       //await watchTaskStatus()  ==
       //await helpStatus() ok
-      await getNewsId()
+      await getNewsId() //阅读新闻+抽奖ok
       await checkWaterNum()
       await getQuestionId()
       await guaList()
@@ -340,16 +340,21 @@ return new Promise((resolve, reject) => {
       $.log('————checkWaterNum————\n'+data)
      const waternum = JSON.parse(data)
       if(waternum.code == 200 && waternum.day_num < 7) {
-      waterNum = waternum.day_num
-      if(waternum.is_sp == 1){
-          $.log('\n🎉喝水前需要看广告！,1s后开始看广告\n')
-          await $.wait(1000)
-          await checkWaterSp()
-         }else{
-          $.log('\n🎉查询成功,1s后领取喝水奖励\n')
-          await $.wait(1000)
-          await waterClick()
-         }}else{
+          waterNum = waternum.day_num
+          if(waternum.next_time == 0){
+            if(waternum.is_sp == 1){
+                $.log('\n🎉喝水前需要看广告！,1s后开始看广告\n')
+                await $.wait(1000)
+                await checkWaterSp()
+             }else{
+                $.log('\n🎉查询成功,1s后领取喝水奖励\n')
+                await $.wait(1000)
+                await waterClick()
+             }
+          }else{
+             $.log('\n⚠️喝水失败: 还没到喝水时间，再等'+waternum.next_time+'秒\n')
+            }
+       }else{
           $.log('\n⚠️喝水失败: 今日喝水已上限\n')
          }
           resolve()
@@ -407,6 +412,7 @@ return new Promise((resolve, reject) => {
    $.post(waterclick,async(error, response, data) =>{
      const clickwater = JSON.parse(data)
 $.log('\n🔔开始领取喝水奖励\n')
+$.log('————waterClick————\n'+data)
       if(clickwater.code == 200) {
           $.log('\n🎉'+clickwater.msg+'喝水金币+ '+clickwater.jinbi+'💰\n')
            }else{
@@ -1087,7 +1093,7 @@ return new Promise((resolve, reject) => {
       $.log('————checkLuckNum————\n'+data)
       $.log('\n🔔开始查询抽奖次数\n')
       if(num.lucky_num != 0) {
-          $.log('\n🎉剩余抽奖次数:'+num.lucky_num+'1s后开始抽奖\n')
+          $.log('\n🎉剩余抽奖次数:'+num.lucky_num+' ,1s后开始抽奖\n')
           await $.wait(1000)
           await luckyClick()
          }else if(num.lucky_num == 0) {
@@ -1110,9 +1116,9 @@ function luckyClick() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let luckclick ={
-    url: `https://yuedongzu.yichengw.cn/apps/luckycoins?`, //lucky_click
+    url: `https://yuedongzu.yichengw.cn/apps/lucky_click?`, //lucky_click
     headers: JSON.parse(CookieVal),
-    body: `lucky_pos=2&`,
+    //body: `lucky_pos=2&`,
 }
    $.post(luckclick,async(error, response, data) =>{
      const lucky = JSON.parse(data)
