@@ -424,7 +424,8 @@ return new Promise((resolve, reject) => {
     headers: JSON.parse(CookieVal),
 }
    $.post(sleepstatus,async(error, response, data) =>{
-$.log('\n🔔开始查询睡觉状态\n')
+      $.log('\n🔔开始查询睡觉状态\n')
+      $.log('————sleepStatus————\n'+data)
      const slpstatus = JSON.parse(data)
       if(slpstatus.code == 200) {
       if(slpstatus.is_lq == 1 && now.getHours() >= 8 && now.getHours() <= 18) {
@@ -465,7 +466,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(sleepstart,async(error, response, data) =>{
      const startsleep = JSON.parse(data)
-$.log('\n🔔开始睡觉\n')
+      $.log('\n🔔开始睡觉\n')
+      $.log('————sleepStart————\n'+data)
       if(startsleep.code == 200) {
           $.log('\n🎉睡觉成功！早睡早起身体好！\n')
            }else{
@@ -485,7 +487,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(sleepend,async(error, response, data) =>{
      const endsleep = JSON.parse(data)
-$.log('\n🔔开始起床\n')
+      $.log('\n🔔开始起床\n')
+      $.log('————sleepEnd————\n'+data)
       if(endsleep.code == 200) {
           $.log('\n🎉起床了！別睡了！\n')
           await sleepStatus()
@@ -507,7 +510,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(sleepdone,async(error, response, data) =>{
      const donesleep = JSON.parse(data)
-$.log('\n🔔开始领取睡觉金币\n')
+      $.log('\n🔔开始领取睡觉金币\n')
+      $.log('————sleepDone————\n'+data)
       if(donesleep.code == 200) {
           $.log('\n🎉'+donesleep.msg+'金币+ '+donesleep.jinbi+'💰\n')
            }else{
@@ -528,6 +532,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(clicktaskstatus,async(error, response, data) =>{
      const clicktask = JSON.parse(data)
+      $.log('————clickTaskStatus————\n'+data)
      $.log('\n⚠️每日点击广告任务已上限\n'+data)
       if(clicktask.first.admobile_st != 2) {
         $.log('\n🔔开始查询每日点击任务状态\n')
@@ -550,6 +555,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(watchtaskstatus,async(error, response, data) =>{
      const watchtask = JSON.parse(data)
+      $.log('————watchTaskStatus————\n'+data)
       $.log('\n🔔开始查询每日观看广告任务状态\n')
        if(watchtask.v_st != 2) {
         $.log('\n🔔每日观看广告任务状态查询成功,1s后查询每日观看广告ID\n')
@@ -574,7 +580,8 @@ return new Promise((resolve, reject) => {
     body: `mini_pos=0&c_type=1&`,
 }
    $.post(checkdailywatchadid,async(error, response, data) =>{
-$.log('\n🔔开始查询每日观看广告ID\n')
+      $.log('\n🔔开始查询每日观看广告ID\n')
+      $.log('————checkDailyWatchAdId————\n'+data)
      const dailywatchid = JSON.parse(data)
       if(dailywatchid.code == 200) {
       dailyWatchStr = dailywatchid.nonce_str
@@ -599,7 +606,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(dailywatchad,async(error, response, data) =>{
      const dailywatch = JSON.parse(data)
-$.log('\n🔔开始领取每日观看奖励\n')
+      $.log('\n🔔开始领取每日观看奖励\n')
+      $.log('————DailyWatchAd————\n'+data)
       if(dailywatch.code == 200) {
           $.log('\n🎉每日观看奖励领取成功,5m(300s)后查询下一次广告\n')
           for(let i=1;i<=60;i++){
@@ -627,7 +635,8 @@ return new Promise((resolve, reject) => {
     headers: JSON.parse(CookieVal),
 }
    $.post(checkdailyclickadid,async(error, response, data) =>{
-$.log('\n🔔开始查询每日广告ID\n')
+      $.log('\n🔔开始查询每日广告ID\n')
+      $.log('————checkDailyClickAdId————\n'+data)
      const dailyclickid = JSON.parse(data)
       if(dailyclickid.code == 200) {
       dailyClickAdId = dailyclickid.ad_id
@@ -651,7 +660,8 @@ return new Promise((resolve, reject) => {
     body: `ad_id=${dailyClickAdId}&`,
 }
    $.post(checkdailyclickad,async(error, response, data) =>{
-$.log('\n🔔开始查询每日广告点击ID\n')
+    $.log('\n🔔开始查询每日广告点击ID\n')
+    $.log('————checkDailyClickAd————\n'+data)
      const dailyclick = JSON.parse(data)
       if(dailyclick.code == 200) {
       dailyClickStr = dailyclick.nonce_str
@@ -675,7 +685,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(dailyclickad,async(error, response, data) =>{
      const dailyclick = JSON.parse(data)
-$.log('\n🔔开始领取每日点击奖励\n')
+      $.log('\n🔔开始领取每日点击奖励\n')
+      $.log('————DailyClickAd————\n'+data)
       if(dailyclick.code == 200) {
           $.log('\n🎉每日点击奖励领取成功,1s后查询下一次广告ID\n')
           await $.wait(1000)
@@ -699,6 +710,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(checkhomejin,async(error, response, data) =>{
      const checkhomejb = JSON.parse(data)
+      $.log('————checkHomeJin————\n'+data)
      if(checkhomejb.xuanfu_st == 0){
           await homeJin()
          }else if(checkhomejb.xuanfu_st == 1){
@@ -751,6 +763,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(homejin,async(error, response, data) =>{
      const homejb = JSON.parse(data)
+    $.log('————homeJin————\n'+data)
      if(homejb.code == 200){
 $.log('\n🔔开始领取首页金币\n')
           $.log('\n🎉首页金币:'+homejb.msg+'\n金币+ '+homejb.jinbi+'等待30s后开始翻倍金币\n')
@@ -778,7 +791,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(homejincallback,async(error, response, data) =>{
      const hmjcallback = JSON.parse(data)
-$.log('\n🔔开始翻倍首页金币\n')
+      $.log('\n🔔开始翻倍首页金币\n')
+      $.log('————homeJinCallBack————\n'+data)
       if(hmjcallback.code == 200) {
           $.log('\n🎉首页金币翻倍成功\n')
           await checkHomeJin()
@@ -801,6 +815,7 @@ return new Promise((resolve, reject) => {
    $.post(checkredbagid,async(error, response, data) =>{
 $.log('\n🔔开始查询首页红包ID\n')
      const code = JSON.parse(data)
+      $.log('————checkRedBagId————\n'+data)
       if(code.code == 200) {
       redBagStr = code.nonce_str
 $.log('\n🔔查询首页红包ID成功,等待30s后领取首页红包\n')
@@ -822,7 +837,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(redbagcallback,async(error, response, data) =>{
      const redbag = JSON.parse(data)
-$.log('\n🔔开始领取首页红包\n')
+      $.log('————redBagCallback————\n'+data)
+      $.log('\n🔔开始领取首页红包\n')
       if(redbag.code == 200) {
           $.log('\n🎉首页红包领取成功\n')
           await checkHomeJin()
@@ -844,6 +860,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(checkgoldeggid,async(error, response, data) =>{
      const goldeggid = JSON.parse(data)
+      $.log('————checkGoldEggId————\n'+data)
       if(goldeggid.code == 200) {
 $.log('\n🔔金蛋ID data'+data)
 $.log('\n🔔开始查询首页金蛋ID\n')
@@ -871,6 +888,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(goldeggdone,async(error, response, data) =>{
      const goldegg2 = JSON.parse(data)
+      $.log('————goldEggDone————\n'+data)
       if(goldegg2.code == 200) {
 $.log('\n🔔开始领取首页金蛋奖励\n')
           $.log('\n🎉首页金蛋:'+goldegg2.msg+'\n金币+ '+goldegg2.jinbi+'\n')
@@ -894,7 +912,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(goldeggcallback,async(error, response, data) =>{
      const goldeggback = JSON.parse(data)
-$.log('\n🔔开始翻倍首页金蛋\n')
+      $.log('————goldEggCallback————\n'+data)
+      $.log('\n🔔开始翻倍首页金蛋\n')
       if(goldeggback.code == 200) {
           $.log('\n🎉金蛋翻倍成功\n')
           await checkHomeJin()
@@ -916,7 +935,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(helpstatus,async(error, response, data) =>{
      const help = JSON.parse(data)
-$.log('\n🔔开始查询助力视频状态\n')
+      $.log('————helpStatus————\n'+data)
+      $.log('\n🔔开始查询助力视频状态\n')
       if(help.status == 0) {
 $.log('\n🔔查询助力视频状态成功, 1s后获取助力视频ID\n')
           await checkCode()
@@ -939,7 +959,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(checkcode,async(error, response, data) =>{
      const code = JSON.parse(data)
-$.log('\n🔔开始查询助力视频ID\n')
+      $.log('————checkCode————\n'+data)
+      $.log('\n🔔开始查询助力视频ID\n')
       if(code.code == 200) {
       nonce_str = code.nonce_str
 $.log('\n🔔查询助力视频ID成功, 开始观看助力视频\n')
