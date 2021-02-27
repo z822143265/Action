@@ -42,14 +42,14 @@ if(CookieVal)$.setdata(CookieVal,'byd_ck')
 
 $.msg($.name,"开始🎉🎉🎉")
 
-      //await cashCheck()
+      //await cashCheck() ok
       //await signIn()  明天获取url
-      //await checkWaterNum()
-      //await zaoWanDkInfo()
+      //await checkWaterNum() ok
+      //await zaoWanDkInfo() ok
       //await sleepStatus()   晚上再测试
-      await clickTaskStatus()
-      await watchTaskStatus()
-      //await helpStatus()
+      //await clickTaskStatus()  ==
+      //await watchTaskStatus()  ==
+      //await helpStatus() ok
       await getNewsId()
       await checkWaterNum()
       await getQuestionId()
@@ -932,7 +932,7 @@ function helpStatus() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let helpstatus ={
-    url: `https://yuedongzu.yichengw.cn/user/help_index`,
+    url: `https://yuedongzu.yichengw.cn/apps/help_index?`,
     headers: JSON.parse(CookieVal),
 }
    $.post(helpstatus,async(error, response, data) =>{
@@ -978,7 +978,7 @@ function helpClick() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let helpclick ={
-    url: `https://yuedongzu.yichengw.cn/user/help_click`,
+    url: `https://yuedongzu.yichengw.cn/apps/help_click`,
     headers: JSON.parse(CookieVal),
     body: `nonce_str=${nonce_str}`,
 }
@@ -1057,7 +1057,7 @@ function autoRead() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let autoread ={
-    url: 'https://yuedongzu.yichengw.cn/apps/news_done',
+    url: 'https://yuedongzu.yichengw.cn/apps/news_done?',
     headers: JSON.parse(CookieVal),
     body: `nonce_str=${newsStr}& `,
 }
@@ -1079,7 +1079,7 @@ function checkLuckNum() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let lucknum ={
-    url: `https://yuedongzu.yichengw.cn/apps/lucky`,
+    url: `https://yuedongzu.yichengw.cn/apps/lucky?`,
     headers: JSON.parse(CookieVal),
 }
    $.post(lucknum,async(error, response, data) =>{
@@ -1110,15 +1110,16 @@ function luckyClick() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let luckclick ={
-    url: `https://yuedongzu.yichengw.cn/apps/lucky_click`,
+    url: `https://yuedongzu.yichengw.cn/apps/luckycoins?`, //lucky_click
     headers: JSON.parse(CookieVal),
+    body: `lucky_pos=2&`,
 }
    $.post(luckclick,async(error, response, data) =>{
      const lucky = JSON.parse(data)
       $.log('————luckyClick————\n'+data)
       $.log('\n🔔开始抽奖\n')
       if(lucky.code == 200) {
-          $.log('\n🎉抽奖:'+lucky.msg+'\n金币+ '+lucky.jinbi+'\n')
+          $.log('\n🎉抽奖:'+lucky.message+'\n金币+ '+lucky.jinbi+'\n')
          luckyStr = lucky.nonce_str
           //$.log('\n'+luckyStr+'\n')
       if(lucky.jinbi != 0) {
