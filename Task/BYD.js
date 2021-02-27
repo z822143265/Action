@@ -116,7 +116,7 @@ return new Promise((resolve, reject) => {
     headers: JSON.parse(CookieVal),
 }
    $.post(signin,async(error, response, data) =>{
-$.log('\n🔔开始签到\n')
+     $.log('\n🔔开始签到\n')
      const sign = JSON.parse(data)
       if(sign.code == 200) {
           $.log('\n🎉'+sign.msg+'签到金币+ '+sign.jinbi+'💰\n')
@@ -1313,16 +1313,19 @@ return new Promise((resolve, reject) => {
    $.post(cashcheck,async(error, response, data) =>{
      const cash = JSON.parse(data)
      $.log('————cashCheck————\n'+data)
-     if(response.statusCode == 200 && cash.code != -1){
-if(cash.jinbi >= 500000){
-     tip = 50
-      await withDraw()
-     }else if(cash.day_jinbi > 5000){
-     tip = 0.3
-      await withDraw()
-     }
-           }
-          resolve()
+     if(response.code == 200 && cash.code != -1){
+         if(cash.jinbi >= 500000){
+           tip = 50
+           await withDraw()
+         }else if(cash.jinbi > 10000 && cash.tixian_coupon >8){
+          tip = 1
+          await withDraw()
+        }else if(cash.day_jinbi > 6000){
+          tip = 0.3
+          await withDraw()
+         }
+       }
+        resolve()
     })
    })
   }
