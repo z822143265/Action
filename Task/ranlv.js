@@ -136,10 +136,10 @@ if (!rlheaderArr[0]) {
       console.log(`\n开始【燃旅视频${$.index}】`)
       await checkVersion()
       await index()
-      await userinfo()
       await task_center()
       await myVotes()
       await wiTask()
+      await userinfo()
       await showmsg()
 
   }
@@ -236,13 +236,13 @@ let headers = rlheader.replace(/acw_tc=\w+/,'')
         myid = result.user.id
         console.log('🎈'+result.msg+' 邀请码：'+result.user.id+' 昵称：'+result.user.nickname+' 燃旅号：'+result.user.ranlvid +'\n')
         console.log('现有余额：'+result.user.balance + '提现额度：'+result.user.lines+'\n')
+        message += '🎈'+result.msg+' 邀请码：'+result.user.id+' 昵称：'+result.user.nickname+' 燃旅号：'+result.user.ranlvid +'现有余额：'+result.user.balance + '提现额度：'+result.user.lines+'\n'
         if(cash > 0 && Number(result.user.balance) >= cash && Number(result.user.lines) >= Number(result.user.balance)){
           if(Number(result.user.balance) > 10 ){cash = 10}
           else if(Number(result.user.balance) > 3 ){cash = 3}
           else{cash = 1}
           await wallet()
         }
-        message += '🎈'+result.msg+' 邀请码：'+result.user.id+' 昵称：'+result.user.nickname+' 燃旅号：'+result.user.ranlvid +'现有余额：'+result.user.balance + '提现额度：'+result.user.lines+'\n'
         }else{
         console.log('👀我也不知道\n')
         message += '👀我也不知道\n'

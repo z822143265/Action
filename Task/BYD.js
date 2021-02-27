@@ -233,7 +233,7 @@ return new Promise((resolve, reject) => {
     url: `https://yuedongzu.yichengw.cn/apps/gua/index?`,
     headers: JSON.parse(CookieVal),
 }
-   $.post(gualist,async(error, response, data) =>{
+   $.get(gualist,async(error, response, data) =>{
     $.log('\n🔔开始查询刮刮卡ID\n')
     $.log('————guaList————\n'+data)
      const guaid = JSON.parse(data)
@@ -256,7 +256,7 @@ return new Promise((resolve, reject) => {
           resolve()
     })
    })
-  }
+}
 
 function guaDet() {
 return new Promise((resolve, reject) => {
