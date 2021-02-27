@@ -44,7 +44,7 @@ $.msg($.name,"开始🎉🎉🎉")
 
       //await cashCheck()
       await userInfo()
-      //await signIn()  明天获取url4
+      //await signIn()  明天获取url6
       //await checkWaterNum() //喝水ok
       //await zaoWanDkInfo() //早晚打卡ok
       //await sleepStatus()   晚上再测试
