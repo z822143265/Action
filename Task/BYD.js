@@ -50,9 +50,9 @@ $.msg($.name,"开始🎉🎉🎉")
       //await clickTaskStatus()  ==
       //await watchTaskStatus()  ==
       //await helpStatus() ok
-      await getNewsId() //阅读新闻+抽奖ok
-      await checkWaterNum()
-      await getQuestionId()
+      //await getNewsId() //阅读新闻+抽奖box ok
+      //await checkWaterNum() ok
+      //await getQuestionId()  //未发现这个模块
       await guaList()
       await checkWaterNum()
       await checkHomeJin()
@@ -1093,8 +1093,8 @@ return new Promise((resolve, reject) => {
       $.log('————checkLuckNum————\n'+data)
       $.log('\n🔔开始查询抽奖次数\n')
       if(num.lucky_num != 0) {
-          $.log('\n🎉剩余抽奖次数:'+num.lucky_num+' ,1s后开始抽奖\n')
-          await $.wait(1000)
+          $.log('\n🎉剩余抽奖次数:'+num.lucky_num+' ,3s后开始抽奖\n')
+          await $.wait(3000)
           await luckyClick()
          }else if(num.lucky_num == 0) {
           $.log('\n⚠️今日抽奖次数已用完,1s后查询宝箱状态\n')
@@ -1125,11 +1125,11 @@ return new Promise((resolve, reject) => {
       $.log('————luckyClick————\n'+data)
       $.log('\n🔔开始抽奖\n')
       if(lucky.code == 200) {
-          $.log('\n🎉抽奖:'+lucky.message+'\n金币+ '+lucky.jinbi+'\n')
+          $.log('\n🎉抽奖:'+lucky.message+' 金币+'+lucky.jinbi+'\n')
          luckyStr = lucky.nonce_str
           //$.log('\n'+luckyStr+'\n')
       if(lucky.jinbi != 0) {
-          await $.wait(5000)
+          await $.wait(10000)
           await luckyCallBack()
          }else{
           await checkLuckNum()
@@ -1155,7 +1155,7 @@ return new Promise((resolve, reject) => {
       $.log('\n🔔开始翻倍抽奖\n')
       if(callback.code == 200) {
           $.log('\n🎉抽奖翻倍成功\n')
-          await $.wait(5000)
+          await $.wait(25000)
           await checkLuckNum()
            }else{
           $.log('\n⚠️抽奖翻倍失败:'+callback.msg+'\n')
@@ -1179,10 +1179,10 @@ return new Promise((resolve, reject) => {
       $.log('————luckyBox————\n'+data)
       $.log('\n🔔开始打开宝箱\n')
       if(boxlucky.code == 200) {
-          $.log('🎉宝箱: '+boxlucky.msg+'\n金币+ '+boxlucky.jinbi+'\n')
+          $.log('🎉宝箱: '+boxlucky.msg+' 金币+'+boxlucky.jinbi+'\n')
          luckyBoxStr = boxlucky.nonce_str
           $.log('\n🔔宝箱翻倍ID'+luckyBoxStr+'\n')
-          await $.wait(5000)
+          await $.wait(15000)
           await luckyBoxCallBack()
          }else{
           $.log('\n⚠️宝箱失败:'+boxlucky.msg+'\n')
