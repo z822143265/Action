@@ -267,7 +267,6 @@ return new Promise((resolve, reject) => {
 }
    $.get(guadet,async(error, response, data) =>{
       $.log('\n🔔开始查询刮卡签名\n')
-      $.log('\n🔔刮卡guadet\n'+JSON.parse(guadet))
       $.log('————guaDet————\n'+data)
      const guasign= JSON.parse(data)
       if(guasign.Code == 200) {
