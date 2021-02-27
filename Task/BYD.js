@@ -42,9 +42,9 @@ if(CookieVal)$.setdata(CookieVal,'byd_ck')
 
 $.msg($.name,"开始🎉🎉🎉")
 
-      await cashCheck()
+      //await cashCheck()
       await userInfo()
-      //await signIn()  明天获取url
+      //await signIn()  明天获取url4
       //await checkWaterNum() //喝水ok
       //await zaoWanDkInfo() //早晚打卡ok
       //await sleepStatus()   晚上再测试
@@ -228,14 +228,15 @@ return new Promise((resolve, reject) => {
 function guaList() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
+  $.log('————guaList————\n')
   let gualist ={
     url: `https://yuedongzu.yichengw.cn/apps/gua/index?`,
     headers: JSON.parse(CookieVal),
 }
    $.post(gualist,async(error, response, data) =>{
+    $.log('\n🔔开始查询刮刮卡ID\n')
+    $.log('————guaList————\n'+data)
      const guaid = JSON.parse(data)
-      $.log('\n🔔开始查询刮刮卡ID\n')
-      $.log('————guaList————\n'+data)
       if(guaid.ka > 0){
         for (guaId of guaid.list){
           if(guaId.is_suo == 0){
