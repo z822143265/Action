@@ -42,7 +42,7 @@ if(CookieVal)$.setdata(CookieVal,'byd_ck')
 
 $.msg($.name,"开始🎉🎉🎉")
 
-      await cashCheck() ok 3
+      await cashCheck()
       await userInfo()
       //await signIn()  明天获取url
       //await checkWaterNum() //喝水ok
