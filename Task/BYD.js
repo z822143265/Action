@@ -43,7 +43,7 @@ if(CookieVal)$.setdata(CookieVal,'byd_ck')
 $.msg($.name,"开始🎉🎉🎉")
 
       await cashCheck()
-      await signIn()
+      //await signIn()  明天获取url
       await checkWaterNum()
       await zaoWanDkInfo()
       await sleepStatus()
@@ -117,6 +117,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(signin,async(error, response, data) =>{
      $.log('\n🔔开始签到\n')
+     $.log('————signIn————\n'+data)
      const sign = JSON.parse(data)
       if(sign.code == 200) {
           $.log('\n🎉'+sign.msg+'签到金币+ '+sign.jinbi+'💰\n')
@@ -141,6 +142,7 @@ return new Promise((resolve, reject) => {
    $.post(signdouble,async(error, response, data) =>{
      const signin2 = JSON.parse(data)
      $.log('\n🔔开始领取每日观看奖励\n')
+     $.log('————signDouble————\n'+data)
      if(signin2.code == 200) {
         $.log('\n🎉签到翻倍成功\n')
          }else{
@@ -160,6 +162,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(zaowandkinfo,async(error, response, data) =>{
      const zwdkinfo = JSON.parse(data)
+     $.log('————zaoWanDkInfo————\n'+data)
       if(zwdkinfo.code == 200 && zwdkinfo.is_dk == 0) {
       nowTime = zwdkinfo.now_time
       title1 = zwdkinfo.title1
@@ -183,6 +186,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(zaowandk,async(error, response, data) =>{
      const zwdk = JSON.parse(data)
+      $.log('————zaoWanDk————\n'+data)
       if(zwdk.code == 200) {
       zwdkStr = zwdk.nonce_str
           await $.wait(30000)
@@ -203,6 +207,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(dkclick,async(error, response, data) =>{
      const clickdk = JSON.parse(data)
+      $.log('————dkClick————\n'+data)
       if(clickdk.code == 200) {
           $.log('\n🎉'+clickdk.msg+'+ '+clickdk.jinbi+'💰\n')
           $.msg(`${title1}`,`${title2}`,'')
@@ -225,8 +230,9 @@ return new Promise((resolve, reject) => {
     headers: JSON.parse(CookieVal),
 }
    $.post(gualist,async(error, response, data) =>{
-$.log('\n🔔开始查询刮刮卡ID\n')
      const guaid = JSON.parse(data)
+      $.log('\n🔔开始查询刮刮卡ID\n')
+      $.log('————guaList————\n'+data)
       if(guaid.ka > 0){
       for (guaId of guaid.list)
       if(guaId.is_ad == 0){
@@ -254,7 +260,8 @@ return new Promise((resolve, reject) => {
     body: `gid=${GID}&`
 }
    $.post(guadet,async(error, response, data) =>{
-$.log('\n🔔开始查询刮卡签名\n')
+      $.log('\n🔔开始查询刮卡签名\n')
+      $.log('————guaDet————\n'+data)
      const guasign= JSON.parse(data)
       if(response.statusCode == 200) {
 $.log('\n🔔查询刮卡签名成功\n')
@@ -278,7 +285,8 @@ return new Promise((resolve, reject) => {
     body: `sign=${SIGN}&gid=${GID}&glid=${GLID}&`
 }
    $.post(guapost,async(error, response, data) =>{
-$.log('\n🔔开始刮卡\n')
+      $.log('\n🔔开始刮卡\n')
+      $.log('————guaPost————\n'+data)
      const guaka= JSON.parse(data)
       if(typeof guaka.jf === 'number') {
       guaStr = guaka.nonce_str
@@ -302,7 +310,8 @@ return new Promise((resolve, reject) => {
 }
    $.post(guadouble,async(error, response, data) =>{
      const guaka2 = JSON.parse(data)
-$.log('\n🔔开始领取刮卡翻倍奖励\n')
+      $.log('\n🔔开始领取刮卡翻倍奖励\n')
+      $.log('————guaDouble————\n'+data)
       if(guaka2.code == 200) {
           $.log('\n🎉刮卡翻倍成功,等待2s后查询下一張刮刮卡ID\n')
           await $.wait(2000)
@@ -325,7 +334,8 @@ return new Promise((resolve, reject) => {
     headers: JSON.parse(CookieVal),
 }
    $.post(checkwaternum,async(error, response, data) =>{
-$.log('\n🔔开始查询喝水杯数\n')
+      $.log('\n🔔开始查询喝水杯数\n')
+      $.log('————checkWaterNum————\n'+data)
      const waternum = JSON.parse(data)
       if(waternum.code == 200 && waternum.day_num < 7) {
       waterNum = waternum.day_num
