@@ -269,12 +269,13 @@ return new Promise((resolve, reject) => {
       $.log('\n🔔开始查询刮卡签名\n')
       $.log('————guaDet————\n'+data)
      const guasign= JSON.parse(data)
-      if(guasign.Code == 200) {
-      $.log('\n🔔查询刮卡签名成功\n')
-      SIGN = guasign.sign
-      GLID = guasign.glid
-      $.log('\nsign: '+SIGN+'\n')
-      $.log('\nglid: '+GLID+'\n')
+      if(guasign.code == 200) {
+          $.log('\n🔔查询刮卡签名成功\n')
+          SIGN = guasign.sign
+          GLID = guasign.glid
+          $.log('\nsign: '+SIGN+'\n')
+          $.log('\nglid: '+GLID+'\n')
+          await $.wait(5000)
           await guaPost()
          }
           resolve()
@@ -727,17 +728,17 @@ return new Promise((resolve, reject) => {
           //$.log('\n🔔等待'+(checkhomejb.xuanfu_time+5)+'s领取首页金币')
           //await $.wait(checkhomejb.xuanfu_time*1000+5000)
           await homeJin()
-          await $.wait(15000)
-        }else if(checkhomejb.steps_btn_st == 2 && checkhomejb.xuanfu_st != 2){
+          await $.wait(30000)
+        }else if(checkhomejb.steps_btn_st == 2 && checkhomejb.xuanfu_st != 2 && checkhomejb.xuanfu_time <= 0){
           $.log('\n🔔开始查询首页红包状态\n')
           await checkRedBagId()
-          await $.wait(15000)
+          await $.wait(25000)
           //$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
           //await $.wait(checkhomejb.jindan_djs*1000+5000)
         }else if(checkhomejb.steps_btn_st == 2 && checkhomejb.xuanfu_st == 2 ){
           $.log('\n🔔开始查询金蛋状态\n')
           await checkGoldtime()
-          await $.wait(15000)
+          await $.wait(25000)
         }/*else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 2 && checkhomejb.hb_st == 1){
           $.log('\n🔔开始查询首页红包状态\n')
           $.log('\n🔔等待'+(checkhomejb.hb_time+5)+'s领取首页红包')
