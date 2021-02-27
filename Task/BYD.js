@@ -177,7 +177,7 @@ function zaoWanDk() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let zaowandk ={
-    url: `https://yuedongzu.yichengw.cn/user/chuansj`,
+    url: `https://yuedongzu.yichengw.cn/apps/chuansj?`,
     headers: JSON.parse(CookieVal),
     body: `mini_pos=3&c_type=1&`,
 }
@@ -349,7 +349,7 @@ function checkWaterSp() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let checksp ={
-    url: `https://yuedongzu.yichengw.cn/user/chuansj`,
+    url: `https://yuedongzu.yichengw.cn/apps/chuansj?`,
     headers: JSON.parse(CookieVal),
     body: `mini_pos=2&c_type=1&`,
 }
@@ -559,7 +559,7 @@ function checkDailyWatchAdId() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let checkdailywatchadid ={
-    url: `https://yuedongzu.yichengw.cn/user/chuansj`,
+    url: `https://yuedongzu.yichengw.cn/apps/chuansj?`,
     headers: JSON.parse(CookieVal),
     body: `mini_pos=0&c_type=1&`,
 }
@@ -784,7 +784,7 @@ function checkRedBagId() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let checkredbagid ={
-    url: `https://yuedongzu.yichengw.cn/user/chuansj`,
+    url: `https://yuedongzu.yichengw.cn/apps/chuansj`,
     headers: JSON.parse(CookieVal),
     body: `mini_pos=0&c_type=2&`,
 }
@@ -923,7 +923,7 @@ function checkCode() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let checkcode ={
-    url: `https://yuedongzu.yichengw.cn/user/chuansj`,
+    url: `https://yuedongzu.yichengw.cn/apps/chuansj?`,
     headers: JSON.parse(CookieVal),
     body: `mini_pos=5&c_type=1&`,
 }
@@ -1212,7 +1212,7 @@ function checkSp() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let checksp ={
-    url: `https://yuedongzu.yichengw.cn/user/chuansj`,
+    url: `https://yuedongzu.yichengw.cn/apps/chuansj?`,
     headers: JSON.parse(CookieVal),
     body: `mini_pos=1&c_type=1&`,
 }
@@ -1406,7 +1406,7 @@ return new Promise((resolve, reject) => {
            }
           resolve()
     })
-   })})
+   })
   }
 
 function upLoadTime() {
