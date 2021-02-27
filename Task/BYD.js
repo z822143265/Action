@@ -42,11 +42,11 @@ if(CookieVal)$.setdata(CookieVal,'byd_ck')
 
 $.msg($.name,"开始🎉🎉🎉")
 
-      await cashCheck()
+      //await cashCheck()
       //await signIn()  明天获取url
-      await checkWaterNum()
-      await zaoWanDkInfo()
-      await sleepStatus()
+      //await checkWaterNum()
+      //await zaoWanDkInfo()
+      //await sleepStatus()   晚上再测试
       await clickTaskStatus()
       await watchTaskStatus()
       //await helpStatus()
@@ -164,12 +164,14 @@ return new Promise((resolve, reject) => {
      const zwdkinfo = JSON.parse(data)
      $.log('————zaoWanDkInfo————\n'+data)
       if(zwdkinfo.code == 200 && zwdkinfo.is_dk == 0) {
-      nowTime = zwdkinfo.now_time
-      title1 = zwdkinfo.title1
-      title2 = zwdkinfo.title2
+          nowTime = zwdkinfo.now_time
+          title1 = zwdkinfo.title1
+          title2 = zwdkinfo.title2
           await zaoWanDk()
-           }
-          resolve()
+        }else{
+          $.log('已经打过卡了\n')
+          }
+      resolve()
     })
    })
   }
@@ -532,7 +534,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(clicktaskstatus,async(error, response, data) =>{
      const clicktask = JSON.parse(data)
-      $.log('————clickTaskStatus————\n'+data)
+     $.log('————clickTaskStatus————\n'+data)
      $.log('\n⚠️每日点击广告任务已上限\n'+data)
       if(clicktask.first.admobile_st != 2) {
         $.log('\n🔔开始查询每日点击任务状态\n')
