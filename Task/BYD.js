@@ -237,8 +237,8 @@ return new Promise((resolve, reject) => {
     $.log('\n🔔开始查询刮刮卡ID\n')
     $.log('————guaList————\n'+data)
      const guaid = JSON.parse(data)
-      if(guaid.ka > 0){
-        for (guaId of guaid.list){
+      if(guaid.data.ka > 0){
+        for (guaId of guaid.data.list){
           if(guaId.is_suo == 0){
             GID = guaId.id
             $.log('\n🔔查询刮刮卡ID成功,5s后开始查询刮卡签名\n')
@@ -722,30 +722,23 @@ return new Promise((resolve, reject) => {
    $.post(checkhomejin,async(error, response, data) =>{
      const checkhomejb = JSON.parse(data)
       $.log('————checkHomeJin————\n'+data)
-     if(checkhomejb.xuanfu_st == 0){
+     if(checkhomejb.steps_btn_st != 2){
+          $.log('\n🔔开始查询首页金币状态\n')
+          //$.log('\n🔔等待'+(checkhomejb.xuanfu_time+5)+'s领取首页金币')
+          //await $.wait(checkhomejb.xuanfu_time*1000+5000)
           await homeJin()
-         }else if(checkhomejb.xuanfu_st == 1){
-$.log('\n🔔开始查询首页金币状态\n')
-$.log('\n🔔等待'+(checkhomejb.xuanfu_time+5)+'s领取首页金币')
-          await $.wait(checkhomejb.xuanfu_time*1000+5000)
-          await homeJin()
-         }else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 0){
-$.log('\n🔔开始查询首页金蛋状态\n')
-$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
-          await $.wait(checkhomejb.jindan_djs*1000+5000)
-          await checkGoldEggId()
-         }else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 1){
-$.log('\n🔔开始查询首页金蛋状态\n')
-$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
-          await $.wait(checkhomejb.jindan_djs*1000+5000)
-          await checkGoldEggId()
-         }else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 2 && checkhomejb.hb_st == 0){
-$.log('\n🔔开始查询首页红包状态\n')
+        }else if(checkhomejb.steps_btn_st == 2 && checkhomejb.xuanfu_st != 2){
+          $.log('\n🔔开始查询首页红包状态\n')
           await checkRedBagId()
-         }else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 2 && checkhomejb.hb_st == 1){
-$.log('\n🔔开始查询首页红包状态\n')
-$.log('\n🔔等待'+(checkhomejb.hb_time+5)+'s领取首页红包')
-time = checkhomejb.hb_time+5
+          //$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
+          //await $.wait(checkhomejb.jindan_djs*1000+5000)
+        }else if(checkhomejb.steps_btn_st == 2 && checkhomejb.xuanfu_st == 2 ){
+          $.log('\n🔔开始查询金蛋状态\n')
+          await checkGoldtime()
+        }/*else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 2 && checkhomejb.hb_st == 1){
+          $.log('\n🔔开始查询首页红包状态\n')
+          $.log('\n🔔等待'+(checkhomejb.hb_time+5)+'s领取首页红包')
+          time = checkhomejb.hb_time+5
           for(let i=1;i<=(time/5);i++){
               (function(){
                   setTimeout(() => {
@@ -755,10 +748,13 @@ time = checkhomejb.hb_time+5
           }
           await $.wait(checkhomejb.hb_time*1000+5000)
           await checkRedBagId()
-         }else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 2 && checkhomejb.hb_st == 2){
+        }*/
+         else if(checkhomejb.xuanfu_st == 2 && checkhomejb.jindan_show == 2 && checkhomejb.hb_st == 2){
 $.log('\n🔔首页金币状态:'+checkhomejb.right_text+'\n🔔首页红包状态:'+checkhomejb.hb_text+'\n🔔首页金蛋状态:'+checkhomejb.jindan_text+'\n')
           await checkWaterNum()
-         }
+        }else {
+          await checkWaterNum()
+        }
           resolve()
     })
    })
@@ -769,15 +765,16 @@ function homeJin() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let homejin ={
-    url: 'https://yuedongzu.yichengw.cn/apps/home?jin',
+    url: 'https://yuedongzu.yichengw.cn/apps/luckycoins',
     headers: JSON.parse(CookieVal),
+    body: `lucky_pos=2&`,
 }
    $.post(homejin,async(error, response, data) =>{
      const homejb = JSON.parse(data)
     $.log('————homeJin————\n'+data)
      if(homejb.code == 200){
-$.log('\n🔔开始领取首页金币\n')
-          $.log('\n🎉首页金币:'+homejb.msg+'\n金币+ '+homejb.jinbi+'等待30s后开始翻倍金币\n')
+    $.log('\n🔔开始领取首页金币\n')
+          $.log('\n🎉首页金币: 金币 +'+homejb.jinbi+' ,等待30s后开始翻倍金币\n')
          homeJinStr = homejb.nonce_str
           //$.log('\n'+homeJinStr+'\n')
           await $.wait(30000)
@@ -798,7 +795,7 @@ return new Promise((resolve, reject) => {
   let homejincallback ={
     url: `https://yuedongzu.yichengw.cn/apps/index?`,
     headers: JSON.parse(CookieVal),
-    body: `nonce_str=${homeJinStr}&tid=21&pos=1&`,
+    body: `nonce_str=${homeJinStr}&tid=16&pos=1&`,
 }
    $.post(homejincallback,async(error, response, data) =>{
      const hmjcallback = JSON.parse(data)
@@ -819,14 +816,14 @@ function checkRedBagId() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let checkredbagid ={
-    url: `https://yuedongzu.yichengw.cn/apps/chuansj`,
+    url: `https://yuedongzu.yichengw.cn/apps/xuanfu?`,
     headers: JSON.parse(CookieVal),
-    body: `mini_pos=0&c_type=2&`,
+    //body: `mini_pos=0&c_type=2&`,
 }
    $.post(checkredbagid,async(error, response, data) =>{
-$.log('\n🔔开始查询首页红包ID\n')
+    $.log('\n🔔开始查询首页红包ID\n')
+    $.log('————checkRedBagId————\n'+data)
      const code = JSON.parse(data)
-      $.log('————checkRedBagId————\n'+data)
       if(code.code == 200) {
       redBagStr = code.nonce_str
 $.log('\n🔔查询首页红包ID成功,等待30s后领取首页红包\n')
@@ -862,11 +859,39 @@ return new Promise((resolve, reject) => {
    })
   }
 
+
+  function checkGoldtime() {
+  return new Promise((resolve, reject) => {
+    let timestamp=new Date().getTime();
+    let checkgoltime1 ={
+      url: `https://yuedongzu.yichengw.cn/apps/mystate`,
+      headers: JSON.parse(CookieVal),
+  }
+     $.post(checkgoltime1,async(error, response, data) =>{
+       const goltime = JSON.parse(data)
+        $.log('————checkGoldEggId————\n'+data)
+        if(goltime.code == 200) {
+                $.log('\n🔔金蛋ID data'+data)
+                $.log('\n🔔开始金蛋/惊喜盒子是否可以开启\n')
+                goltimestr = goltime.jiandan_time
+                boxtimestr = goltime.box_time
+                if(goltimestr == 0){await checkGoldEggId()}
+                else if(boxtimestr == 0){await checkboxId()}
+                await $.wait(3000)
+             }else{
+            $.log('\n⚠️首页金蛋失败:'+goltime.msg+'\n')
+            await checkHomeJin()
+          }
+            resolve()
+      })
+     })
+    }
+
 function checkGoldEggId() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let checkgoldeggid ={
-    url: `https://yuedongzu.yichengw.cn/user/jindan_click`,
+    url: `https://yuedongzu.yichengw.cn/apps/jindan_click?`,
     headers: JSON.parse(CookieVal),
 }
    $.post(checkgoldeggid,async(error, response, data) =>{
@@ -874,7 +899,7 @@ return new Promise((resolve, reject) => {
       $.log('————checkGoldEggId————\n'+data)
       if(goldeggid.code == 200) {
 $.log('\n🔔金蛋ID data'+data)
-$.log('\n🔔开始查询首页金蛋ID\n')
+$.log('\n🔔开始查询金蛋ID\n')
       goldEggStr = goldeggid.nonce_str
           $.log('\n'+goldEggStr+'\n')
       goldEggId = goldeggid.taskid
@@ -893,7 +918,7 @@ function goldEggDone() {
 return new Promise((resolve, reject) => {
   let timestamp= Date.parse(new Date())/1000;
   let goldeggdone ={
-    url: `https://yuedongzu.yichengw.cn/user/jindan_done`,
+    url: `https://yuedongzu.yichengw.cn/apps/jindan_done`,
     headers: JSON.parse(CookieVal),
     body: `taskid=${goldEggId}&clicktime=${timestamp}&donetime=${timestamp}+1000&nonce_str=${goldEggStr}&`
 }
@@ -927,9 +952,85 @@ return new Promise((resolve, reject) => {
       $.log('\n🔔开始翻倍首页金蛋\n')
       if(goldeggback.code == 200) {
           $.log('\n🎉金蛋翻倍成功\n')
-          await checkHomeJin()
+          await checkGoldtime()
            }else{
           $.log('\n⚠️金蛋翻倍失败:'+goldeggback.msg+'\n')
+          await checkHomeJin()
+           }
+          resolve()
+    })
+   })
+  }
+
+
+  function checkboxId() {
+  return new Promise((resolve, reject) => {
+    let timestamp=new Date().getTime();
+    let checkboxid ={
+      url: `https://yuedongzu.yichengw.cn/apps/box_click`,
+      headers: JSON.parse(CookieVal),
+  }
+     $.post(checkboxid,async(error, response, data) =>{
+       const boxid = JSON.parse(data)
+        $.log('————checkboxId————\n'+data)
+        if(boxid.code == 200) {
+  $.log('\n🔔盒子ID data'+data)
+  $.log('\n🔔开始查询盒子BOXID\n')
+        boxStr = boxid.nonce_str
+            $.log('\n'+boxStr+'\n')
+        boxxId = boxid.taskid
+            $.log('\n'+boxxId+'\n')
+            await boxDone()
+             }else{
+            $.log('\n⚠️盒子失败:'+goldeggid.msg+'\n')
+            await checkHomeJin()
+          }
+            resolve()
+      })
+     })
+    }
+
+function boxDone() {
+return new Promise((resolve, reject) => {
+  let timestamp= Date.parse(new Date())/1000;
+  let boxxdone ={
+    url: `https://yuedongzu.yichengw.cn/apps/box_done`,
+    headers: JSON.parse(CookieVal),
+    body: `taskid=${boxxId}&clicktime=${timestamp}&donetime=${timestamp}+1000&nonce_str=${boxStr}&`
+}
+   $.post(boxxdone,async(error, response, data) =>{
+     const boxxdone2 = JSON.parse(data)
+      $.log('————goldEggDone————\n'+data)
+      if(boxxdone2.code == 200) {
+          $.log('\n🔔开始领取盒子奖励\n')
+          $.log('\n🎉首页盒子:'+boxxdone2.msg+' 金币 +'+boxxdone2.jinbi+'\n')
+          await boxCallback()
+           }else{
+          $.log('\n⚠️首页盒子失败:'+boxxdone2.msg+'\n')
+          await checkHomeJin()
+           }
+          resolve()
+    })
+   })
+  }
+
+function boxCallback() {
+return new Promise((resolve, reject) => {
+  let timestamp=new Date().getTime();
+  let boxcallback ={
+    url: `https://yuedongzu.yichengw.cn/apps/index?`,
+    headers: JSON.parse(CookieVal),
+    body: `nonce_str=${boxStr}&tid=5&pos=1&`,
+}
+   $.post(boxcallback,async(error, response, data) =>{
+     const boxback = JSON.parse(data)
+      $.log('————boxCallback————\n'+data)
+      $.log('\n🔔开始翻倍盒子\n')
+      if(boxback.code == 200) {
+          $.log('\n🎉盒子翻倍成功\n')
+          await checkGoldtime()
+           }else{
+          $.log('\n⚠️盒子翻倍失败:'+boxback.msg+'\n')
           await checkHomeJin()
            }
           resolve()
