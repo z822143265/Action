@@ -787,21 +787,21 @@ return new Promise((resolve, reject) => {
           //$.log('\n🔔等待'+(checkhomejb.xuanfu_time+5)+'s领取首页金币')
           //await $.wait(checkhomejb.xuanfu_time*1000+5000)
           await $.wait(6000)
-          await homeJin()
-        }else if(checkhomejb.xuanfu_st != 5 && checkhomejb.xuanfu_time <= 0){
+          await homeJin2()
+        }else if(checkhomejb.xuanfu_st != 5 ){
           $.log('\n🔔首页红包可领取\n')
           await $.wait(6000)
           await checkRedBagId()
           //$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
           //await $.wait(checkhomejb.jindan_djs*1000+5000)
-        }else if(checkhomejb.lucky_jinbi2 != 0 && checkhomejb.lucky_jinbi != 0){
+        }else if(checkhomejb.lucky_jinbi2 == 0 ){
           $.log('\n🔔开始查询金蛋、盒子状态\n')
           await $.wait(6000)
           await checkGoldtime()
         }else if(checkhomejb.lucky_jinbi != 0){
           $.log('\n🔔等待50秒后,领取首页金币1\n')
-          await $.wait(50000)
-          await homeJin()
+          await $.wait(30000)
+          await homeJin1()
         }else {
           await checkWaterNum()
         }
@@ -811,7 +811,7 @@ return new Promise((resolve, reject) => {
   }
 
 
-function homeJin() {
+function homeJin2() {
 return new Promise((resolve, reject) => {
   let timestamp=new Date().getTime();
   let homejin ={
@@ -823,8 +823,8 @@ return new Promise((resolve, reject) => {
      const homejb = JSON.parse(data)
     $.log('————homeJin————\n'+data)
      if(homejb.code == 200){
-    $.log('\n🔔开始领取首页金币\n')
-          $.log('\n🎉首页金币: 金币 +'+homejb.jinbi+' ,等待30s后开始翻倍金币\n')
+    $.log('\n🔔开始领取首页金币2\n')
+          $.log('\n🎉首页金币: 金币2 +'+homejb.jinbi+' ,等待30s后开始翻倍金币\n')
          homeJinStr = homejb.nonce_str
           //$.log('\n'+homeJinStr+'\n')
           await $.wait(30000)
@@ -837,7 +837,31 @@ return new Promise((resolve, reject) => {
    })
   }
 
-
+  function homeJin1() {
+  return new Promise((resolve, reject) => {
+    let timestamp=new Date().getTime();
+    let homejin ={
+      url: 'https://yuedongzu.yichengw.cn/apps/luckycoins',
+      headers: JSON.parse(CookieVal),
+      body: `lucky_pos=1&`,
+  }
+     $.post(homejin,async(error, response, data) =>{
+       const homejb = JSON.parse(data)
+      $.log('————homeJin————\n'+data)
+       if(homejb.code == 200){
+      $.log('\n🔔开始领取首页金币1\n')
+            $.log('\n🎉首页金币: 金币1 +'+homejb.jinbi+' ,等待30s后开始翻倍金币\n')
+           homeJinStr = homejb.nonce_str
+            //$.log('\n'+homeJinStr+'\n')
+            await $.wait(30000)
+            await homeJinCallBack()
+      }else{
+            $.log('\n⚠️首页金币失败:'+homejb.msg+'\n')
+             }
+            resolve()
+      })
+     })
+    }
 
 function homeJinCallBack() {
 return new Promise((resolve, reject) => {
