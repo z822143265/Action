@@ -549,11 +549,11 @@ return new Promise((resolve, reject) => {
      $.log('\n🔔开始查询每日任务状态\n')
      if(clicktask.code == 200) {
        for (renwu of clicktask.renwu){
-          $.log(renwu)
+          $.log(renwu + renwu.text)
           tasktaskid = renwu.type
           if (renwu.text == '\u53bb\u9886\u53d6'){
             await $.wait(5000)
-            await taskClickAd()
+            await TaskClickAd()
           }
         }
      }else{
