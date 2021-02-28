@@ -23,7 +23,16 @@ var  homeJinStr,homeJinStr,redBagStr,goltimestr,boxtimestr,goldEggStr,goldEggId,
 var renwu,tasktaskid,taskclickStr,waterNum,waterSpStr,sleepStr,sleepId,box,noticemsg
 
 if ($.isNode()) {
-      CookieVal = process.env.BYD_ck.split()
+      if (process.env.BYD_ck&& process.env.BYD_ck.indexOf('#') > -1) {
+       CookieVal = process.env.BYD_ck.split('#');
+       console.log(`您選擇的是用"#"隔開\n`)
+      }
+      else if (process.env.BYD_ck && process.env.BYD_ck.indexOf('\n') > -1) {
+       CookieVal = process.env.BYD_ck.split('\n');
+       console.log(`您選擇的是用換行隔開\n`)
+      } else {
+       CookieVal = process.env.BYD_ck.split()
+      };
       console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
       console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
 }
