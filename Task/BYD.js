@@ -642,7 +642,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(checkhomejin,async(error, response, data) =>{
      const checkhomejb = JSON.parse(data)
-     //$.log('————checkHomeJin————\n'+data)
+     $.log('————checkHomeJin————\n'+data)
      $.log('\n🔔开始查询首页金币红包状态\n')
      if (checkhomejb.code == 200){
        if(checkhomejb.lucky_jinbi2 != 0 ){
@@ -657,6 +657,9 @@ return new Promise((resolve, reject) => {
          await homeJin1()
        }else if(checkhomejb.xuanfu_st != 2 ){
          $.log('\n🔔首页红包可领取\n')
+         if (checkhomejb.xuanfu_time != 0){
+           await $.wait(checkhomejb.xuanfu_time * 1000)
+         }
          await $.wait(6000)
          await checkRedBagId()
          //$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
