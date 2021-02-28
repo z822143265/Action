@@ -16,10 +16,8 @@ on:
 jobs:
   build:
     env:
-      TTREFER1 : ${{ secrets.TTREFER1  }}
-      TTBODY1: ${{ secrets.TTBODY1 }}
-      TTREFER2: ${{ secrets.TTREFER2 }}
-      TTBODY2: ${{ secrets.TTBODY2 }}
+      TTREFER : ${{ secrets.TTREFER  }}
+      TTBODY: ${{ secrets.TTBODY }}
       PUSH_KEY: ${{ secrets.PUSH_KEY }}
       BARK_PUSH: ${{ secrets.BARK_PUSH }}
       TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
@@ -50,13 +48,5 @@ jobs:
           cd ~/Scripts
           node Task/TT.js
         env:
-          TTREFER1: ${{ secrets.TTREFER1 }}
-          TTBODY1: ${{ secrets.TTBODY1 }}
-
-      - name: '运行 【TT语音2】'
-        run: |
-          cd ~/Scripts
-          node Task/TT.js
-        env:
-          TTREFER2: ${{ secrets.TTREFER2 }}
-          TTBODY2: ${{ secrets.TTBODY2 }}
+          TTREFER: ${{ secrets.TTREFER }}
+          TTBODY: ${{ secrets.TTBODY }}
