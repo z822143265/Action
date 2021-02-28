@@ -48,7 +48,7 @@ $.msg($.name,"开始🎉🎉🎉")
       //await checkWaterNum() //喝水ok
       //await zaoWanDkInfo() //早晚打卡ok
       //await sleepStatus()   晚上再测试
-      await clickTaskStatus()  任务赚赚界面==
+      await clickTaskStatus()  //任务赚赚界面==
       //await watchTaskStatus()  ==
       //await helpStatus() ok
       //await getNewsId() //阅读新闻+抽奖box ok
