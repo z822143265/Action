@@ -44,12 +44,7 @@ if ($.isNode()) {
    hour = (new Date()).getHours();
    minute = (new Date()).getMinutes();
 }
-//CK运行
-let isGetCookie = typeof $request !== 'undefined'
-if (isGetCookie) {
-   GetCookie();
-   $.done()
-}
+
 if ($.isNode()) {
    if (process.env.TTREFER && process.env.TTREFER .indexOf('#') > -1) {
    TTrefer = process.env.TTREFER .split('#');
@@ -61,6 +56,11 @@ if ($.isNode()) {
   } else {
    TTrefer = process.env.TTREFER .split()
   };
+  Object.keys(TTrefer).forEach((item) => {
+        if (TTrefer[item]) {
+          TTreferArr.push(TTrefer[item])
+        }
+    });
   if (process.env.TTBODY&& process.env.TTBODY.indexOf('#') > -1) {
    TTbody= process.env.TTBODY.split('#');
    console.log(`您选择的是用"#"隔开\n`)
@@ -71,6 +71,11 @@ if ($.isNode()) {
   } else {
    TTbody= process.env.TTBODY.split()
   };
+  Object.keys(TTbody).forEach((item) => {
+        if (TTbody[item]) {
+          TTbodyArr.push(TTbody[item])
+        }
+    });
     console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
     console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
  } else {
@@ -83,10 +88,6 @@ if ($.isNode()) {
   }
 }
 !(async () => {
-if (!TTreferArr[0] && !TTbodyArr[0] ) {
-    $.msg($.name, '【提示】请先获取TT语音一cookie')
-    return;
-  }
    console.log(`------------- 共${TTbodyArr.length}个账号----------------\n`)
   for (let i = 0; i < TTbodyArr.length; i++) {
     if (TTbodyArr[i]) {
