@@ -53,4 +53,4 @@ jobs:
           cd ~/Scripts
           node Task/BYD.js
         env:
-          BYD_CK1: ${{ secrets.BYD_CK1 }}
+          BYD_CK: ${{ secrets.BYD_CK1 }}
