@@ -642,7 +642,7 @@ return new Promise((resolve, reject) => {
 }
    $.post(checkhomejin,async(error, response, data) =>{
      const checkhomejb = JSON.parse(data)
-      $.log('————checkHomeJin————\n'+data)
+     //$.log('————checkHomeJin————\n'+data)
      $.log('\n🔔开始查询首页金币红包状态\n')
      if (checkhomejb.code == 200){
        if(checkhomejb.lucky_jinbi2 != 0 ){
@@ -819,7 +819,7 @@ return new Promise((resolve, reject) => {
                 goltimestr = goltime.jiandan_time
                 boxtimestr = goltime.box_time
                 await $.wait(5000)
-                if(goltime.jindan_st != 3 && goltime.jindan_time == 0){
+                if(goltime.jindan_st != 2 && goltime.jindan_time == 0){
                   $.log('\n🔔开始领取金蛋\n')
                   await checkGoldEggId()
                 }
@@ -882,11 +882,11 @@ return new Promise((resolve, reject) => {
           $.log('\n🎉金蛋领取:'+goldegg2.message+' 金币 +'+goldegg2.jinbi+'\n')
           await $.wait(30000)
           await goldEggCallback()
-           }else{
-          $.log('\n⚠️首页金蛋失败:'+goldegg2.msg+'\n')
-          await checkHomeJin()
-           }
-          resolve()
+       }else{
+      $.log('\n⚠️首页金蛋失败:'+goldegg2.msg+'\n')
+      await checkHomeJin()
+       }
+      resolve()
     })
    })
   }

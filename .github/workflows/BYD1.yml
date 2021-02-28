@@ -41,16 +41,28 @@ jobs:
         with:
           node-version: 12.x
       - name: npm install
-        if: env.BYD_CK1
         run: |
           cd ~/Scripts
           npm install -g npm
           npm update
 
-      - name: '运行 【BYD】'
-        if: env.BYD_CK1
+      - name: '运行 【BYD1】'
         run: |
           cd ~/Scripts
           node Task/BYD.js
         env:
           BYD_CK: ${{ secrets.BYD_CK1 }}
+
+      - name: '运行 【BYD2】'
+        run: |
+          cd ~/Scripts
+          node Task/BYD.js
+        env:
+          BYD_CK: ${{ secrets.BYD_CK2 }}
+
+      - name: '运行 【BYD3】'
+        run: |
+          cd ~/Scripts
+          node Task/BYD.js
+        env:
+          BYD_CK: ${{ secrets.BYD_CK3 }}
