@@ -85,8 +85,8 @@ if ($.isNode()) {
   for (let i = 2; i <= TTcount; i++) {
     TTreferArr.push($.getdata(`TTrefer${i}`))
     TTbodyArr.push($.getdata(`TTbody${i}`))
+    }
   }
-}
 !(async () => {
    console.log(`------------- 共${TTbodyArr.length}个账号----------------\n`)
   for (let i = 0; i < TTbodyArr.length; i++) {
