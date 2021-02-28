@@ -44,7 +44,8 @@ $.msg($.name,"开始🎉🎉🎉")
 
       //await cashCheck()
       await userInfo()
-      //await signIn()  明天获取url10
+      await checkHomeJin()
+      //await signIn()  明天获取url11
       //await checkWaterNum() //喝水ok
       //await zaoWanDkInfo() //早晚打卡ok
       //await sleepStatus()   晚上再测试
@@ -56,7 +57,6 @@ $.msg($.name,"开始🎉🎉🎉")
       //await getQuestionId()  //未发现这个模块
       await guaList()
       await checkWaterNum()
-      await checkHomeJin()
       await showmsg()
 
 })()
@@ -790,8 +790,8 @@ return new Promise((resolve, reject) => {
           await $.wait(6000)
           await homeJin()
         }else if(checkhomejb.lucky_jinbi != 0){
-          $.log('\n🔔等待30秒后,开始查询首页金币1状态\n')
-          await $.wait(30000)
+          $.log('\n🔔等待50秒后,开始查询首页金币1状态\n')
+          await $.wait(50000)
           await homeJin()
         }else if(checkhomejb.xuanfu_st != 5 && checkhomejb.xuanfu_time <= 0){
           $.log('\n🔔开始查询首页红包状态\n')
@@ -854,6 +854,7 @@ return new Promise((resolve, reject) => {
       $.log('————homeJinCallBack————\n'+data)
       if(hmjcallback.code == 200) {
           $.log('\n🎉首页金币翻倍成功\n')
+          await $.wait(10000)
           await checkHomeJin()
            }else{
           $.log('\n🔔首页金币翻倍失败'+hmjcallback.msg+'\n')
