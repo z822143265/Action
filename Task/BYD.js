@@ -555,41 +555,39 @@ return new Promise((resolve, reject) => {
             await $.wait(5000)
             await taskClickAd()
           }
-      if(clicktask.renwu.admobile_st != 2) {
-        $.log('\n🔔开始查询每日点击任务状态\n')
-          await checkDailyClickAdId()
-         }else{
-          $.log('\n⚠️每日点击广告任务已上限\n')
-         }
+        }
+     }else{
+      $.log('\n⚠️查询任务状态失败: '+clicktask.msg+'\n')
+     }
        resolve()
     })
    })
   }
 
-  function TaskClickAd() {
-  return new Promise((resolve, reject) => {
-    let timestamp=new Date().getTime();
-    let taskclickad ={
-      url: `https://yuedongzu.yichengw.cn/apps/zhuan_done?`,
-      headers: JSON.parse(CookieVal),
-      body: `taskid=${tasktaskid}&`,
+function TaskClickAd() {
+return new Promise((resolve, reject) => {
+  let timestamp=new Date().getTime();
+  let taskclickad ={
+    url: `https://yuedongzu.yichengw.cn/apps/zhuan_done?`,
+    headers: JSON.parse(CookieVal),
+    body: `taskid=${tasktaskid}&`,
+}
+   $.post(taskclickad,async(error, response, data) =>{
+     const taskclick = JSON.parse(data)
+      $.log('\n🔔开始领取任务奖励\n')
+      $.log('————TaskClickAd————\n'+data)
+      if(taskclick.code == 200) {
+          $.log('\n🎉任务奖励领取成功,3s后领取翻倍奖励\n')
+          taskclickStr = taskclick.nonce_str
+          await $.wait(35000)
+          await TaskClickDoubleAd()
+           }else{
+          $.log('\n⚠️任务奖励领取失败:'+taskclick.msg+'\n')
+           }
+          resolve()
+    })
+   })
   }
-     $.post(taskclickad,async(error, response, data) =>{
-       const taskclick = JSON.parse(data)
-        $.log('\n🔔开始领取任务奖励\n')
-        $.log('————TaskClickAd————\n'+data)
-        if(taskclick.code == 200) {
-            $.log('\n🎉任务奖励领取成功,3s后领取翻倍奖励\n')
-            taskclickStr = taskclick.nonce_str
-            await $.wait(35000)
-            await TaskClickDoubleAd()
-             }else{
-            $.log('\n⚠️任务奖励领取失败:'+taskclick.msg+'\n')
-             }
-            resolve()
-      })
-     })
-    }
 
 function TaskClickDoubleAd() {
 return new Promise((resolve, reject) => {
@@ -613,7 +611,7 @@ return new Promise((resolve, reject) => {
           resolve()
     })
    })
-  }
+}
 
 
 
