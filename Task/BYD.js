@@ -30,6 +30,10 @@ if ($.isNode()) {
 
 let now = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
 
+hour = new Date( new Date().getTime() + 8 * 60 * 60 * 1000 ).getHours();
+minute = new Date( new Date().getTime() + 8 * 60 * 60 * 1000 ).getMinutes();
+$.msg('现在时间为'+hour+':'+minute)
+
 if (typeof $request !== 'undefined') {
    if ($request && $request.method != `OPTIONS` && $request.url.indexOf('user/profile') != -1) {
      const CookieVal = JSON.stringify($request.headers)
@@ -67,7 +71,10 @@ $.msg($.name,"开始🎉🎉🎉")
 
 function showmsg(){
     $.msg($.name, '', notice)
-     }
+    if (hour >23){
+      notify.sendNotify(`${$.name}-账号${nickname} 今日收益为${today_gold}` , `${$.name}-账号${nickname}\n${notice}`)
+    }
+}
 
 var getBoxId = (function () {
     var i = 0;
@@ -891,6 +898,10 @@ return new Promise((resolve, reject) => {
           await checkHomeJin()
            }
           resolve()
+
+
+
+
     })
    })
   }
