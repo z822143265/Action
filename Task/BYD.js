@@ -784,14 +784,10 @@ return new Promise((resolve, reject) => {
       $.log('————checkHomeJin————\n'+data)
      $.log('\n🔔开始查询首页金币红包状态\n')
      if(checkhomejb.lucky_jinbi2 != 0){
-          $.log('\n🔔开始查询首页金币2状态\n')
+          $.log('\n🔔首页金币2可领取\n')
           //$.log('\n🔔等待'+(checkhomejb.xuanfu_time+5)+'s领取首页金币')
           //await $.wait(checkhomejb.xuanfu_time*1000+5000)
           await $.wait(6000)
-          await homeJin()
-        }else if(checkhomejb.lucky_jinbi != 0){
-          $.log('\n🔔等待50秒后,开始查询首页金币1状态\n')
-          await $.wait(50000)
           await homeJin()
         }else if(checkhomejb.xuanfu_st != 5 && checkhomejb.xuanfu_time <= 0){
           $.log('\n🔔开始查询首页红包状态\n')
@@ -803,6 +799,10 @@ return new Promise((resolve, reject) => {
           $.log('\n🔔开始查询金蛋、盒子状态\n')
           await $.wait(6000)
           await checkGoldtime()
+        }else if(checkhomejb.lucky_jinbi != 0){
+          $.log('\n🔔等待50秒后,领取首页金币1状态\n')
+          await $.wait(50000)
+          await homeJin()
         }else {
           await checkWaterNum()
         }
