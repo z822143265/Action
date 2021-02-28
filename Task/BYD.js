@@ -789,7 +789,7 @@ return new Promise((resolve, reject) => {
           await $.wait(6000)
           await homeJin()
         }else if(checkhomejb.xuanfu_st != 5 && checkhomejb.xuanfu_time <= 0){
-          $.log('\n🔔开始查询首页红包状态\n')
+          $.log('\n🔔首页红包可领取\n')
           await $.wait(6000)
           await checkRedBagId()
           //$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
@@ -799,7 +799,7 @@ return new Promise((resolve, reject) => {
           await $.wait(6000)
           await checkGoldtime()
         }else if(checkhomejb.lucky_jinbi != 0){
-          $.log('\n🔔等待50秒后,领取首页金币1状态\n')
+          $.log('\n🔔等待50秒后,领取首页金币1\n')
           await $.wait(50000)
           await homeJin()
         }else {
@@ -923,7 +923,7 @@ return new Promise((resolve, reject) => {
         $.log('————checkGoldEggId————\n'+data)
         if(goltime.code == 200) {
                 $.log('\n🔔金蛋ID data'+data)
-                $.log('\n🔔开始金蛋/惊喜盒子是否可以开启\n')
+                $.log('\n🔔开始查询金蛋/惊喜盒子是否可以开启\n')
                 goltimestr = goltime.jiandan_time
                 boxtimestr = goltime.box_time
                 await $.wait(5000)
