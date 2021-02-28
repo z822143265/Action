@@ -23,8 +23,7 @@ var  homeJinStr,homeJinStr,redBagStr,goltimestr,boxtimestr,goldEggStr,goldEggId,
 var renwu,tasktaskid,taskclickStr,waterNum,waterSpStr,sleepStr,sleepId,box,noticemsg
 
 if ($.isNode()) {
-      //CookieVal = process.env.BYD_ck.split()
-      CookieVal = '{"store":"appstore","Connection":"keep-alive","Accept-Encoding":"gzip, deflate, br","version":"3","idfa":"C6B1D4DF-7192-4D58-99E1-344E824B3474","User-Agent":"YDZ/20 CFNetwork/1128.0.1 Darwin/19.6.0","platform":"2","imei":"F0ADF06A-7E51-48E2-9BC3-873B6C4FD08B","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wveXVlZG9uZ3p1LnlpY2hlbmd3LmNuXC9hcHBzXC9sb2dpblwvd2VjaGF0IiwiaWF0IjoxNjE0MzA4NzgyLCJleHAiOjIwNTM1OTA4NzgyLCJuYmYiOjE2MTQzMDg3ODIsImp0aSI6InBITDU3VWttVHJia1plQm4iLCJzdWIiOjI0Mjk1LCJwcnYiOiI0MWRmODgzNGYxYjk4ZjcwZWZhNjBhYWVkZWY0MjM0MTM3MDA2OTBjIn0.b9IQtTVuRUinWNolb7wxBFSKJ0cbp0eHLeeYnXL_-k0","Host":"yuedongzu.yichengw.cn","Accept-Language":"zh-cn","Accept":"*/*","Content-Length":"0"}'
+      CookieVal = process.env.BYD_ck.split()
       console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
       console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
 }
