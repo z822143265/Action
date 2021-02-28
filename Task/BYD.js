@@ -45,7 +45,7 @@ $.msg($.name,"开始🎉🎉🎉")
       //await cashCheck()
       await userInfo()
       await checkHomeJin()
-      //await signIn()  明天获取url12
+      //await signIn()  明天获取url13
       //await checkWaterNum() //喝水ok
       //await zaoWanDkInfo() //早晚打卡ok
       //await sleepStatus()   晚上再测试
@@ -788,7 +788,11 @@ return new Promise((resolve, reject) => {
           //await $.wait(checkhomejb.xuanfu_time*1000+5000)
           await $.wait(6000)
           await homeJin2()
-        }else if(checkhomejb.xuanfu_st != 5 ){
+        }else if(checkhomejb.lucky_jinbi != 0){
+          $.log('\n🔔首页金币1可领取\n')
+          await $.wait(10000)
+          await homeJin1()
+        }else if(checkhomejb.xuanfu_st != 1 ){
           $.log('\n🔔首页红包可领取\n')
           await $.wait(6000)
           await checkRedBagId()
@@ -798,10 +802,6 @@ return new Promise((resolve, reject) => {
           $.log('\n🔔开始查询金蛋、盒子状态\n')
           await $.wait(6000)
           await checkGoldtime()
-        }else if(checkhomejb.lucky_jinbi != 0){
-          $.log('\n🔔等待50秒后,领取首页金币1\n')
-          await $.wait(30000)
-          await homeJin1()
         }else {
           await checkWaterNum()
         }
@@ -900,11 +900,13 @@ return new Promise((resolve, reject) => {
     $.log('————checkRedBagId————\n'+data)
      const code = JSON.parse(data)
       if(code.code == 200) {
-      redBagStr = code.nonce_str
-$.log('\n🔔查询首页红包ID成功,等待30s后领取首页红包\n')
+          redBagStr = code.nonce_str
+          $.log('\n🔔查询首页红包ID成功,等待30s后领取首页红包\n')
           await $.wait(30000)
           await redBagCallback()
-           }
+       }else{
+          $.log('\n⚠️首页红包失败:'+code.message+'\n')
+          await checkHomeJin()
           resolve()
     })
    })
