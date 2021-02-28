@@ -20,18 +20,19 @@ let notice = ''
 let CookieVal = $.getdata('byd_ck')
 
 var  homeJinStr,homeJinStr,redBagStr,goltimestr,boxtimestr,goldEggStr,goldEggId,boxStr,boxtaskid,nonce_str,newsStr,luckyStr,luckyBoxStr,tip,H5ID,H5Str,H5TaskID
-var renwu,tasktaskid,taskclickStr,waterNum,waterSpStr,sleepStr,sleepId,box
+var renwu,tasktaskid,taskclickStr,waterNum,waterSpStr,sleepStr,sleepId,box,noticemsg
 
 if ($.isNode()) {
-      CookieVal = process.env.BYD_ck.split()
+      //CookieVal = process.env.BYD_ck.split()
+      CookieVal = '{"store":"appstore","Connection":"keep-alive","Accept-Encoding":"gzip, deflate, br","version":"3","idfa":"C6B1D4DF-7192-4D58-99E1-344E824B3474","User-Agent":"YDZ/20 CFNetwork/1128.0.1 Darwin/19.6.0","platform":"2","imei":"F0ADF06A-7E51-48E2-9BC3-873B6C4FD08B","Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wveXVlZG9uZ3p1LnlpY2hlbmd3LmNuXC9hcHBzXC9sb2dpblwvd2VjaGF0IiwiaWF0IjoxNjE0MzA4NzgyLCJleHAiOjIwNTM1OTA4NzgyLCJuYmYiOjE2MTQzMDg3ODIsImp0aSI6InBITDU3VWttVHJia1plQm4iLCJzdWIiOjI0Mjk1LCJwcnYiOiI0MWRmODgzNGYxYjk4ZjcwZWZhNjBhYWVkZWY0MjM0MTM3MDA2OTBjIn0.b9IQtTVuRUinWNolb7wxBFSKJ0cbp0eHLeeYnXL_-k0","Host":"yuedongzu.yichengw.cn","Accept-Language":"zh-cn","Accept":"*/*","Content-Length":"0"}'
       console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
       console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
 }
 
 let now = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000);
 
-hour = new Date( new Date().getTime() + 8 * 60 * 60 * 1000 ).getHours();
-minute = new Date( new Date().getTime() + 8 * 60 * 60 * 1000 ).getMinutes();
+var hour = new Date( new Date().getTime() + 8 * 60 * 60 * 1000 ).getHours();
+var minute = new Date( new Date().getTime() + 8 * 60 * 60 * 1000 ).getMinutes();
 $.msg('现在时间为'+hour+':'+minute)
 
 if (typeof $request !== 'undefined') {
@@ -70,9 +71,9 @@ $.msg($.name,"开始🎉🎉🎉")
 
 
 function showmsg(){
-    $.msg($.name, '', notice)
+    $.msg($.name, '', notice , noticemsg)
     if (hour >23){
-      notify.sendNotify(`${$.name}-账号${nickname} 今日收益为${today_gold}` , `${$.name}-账号${nickname}\n${notice}`)
+      notify.sendNotify(`${$.name}-账号${nickname} 今日收益为${today_gold}` , `${$.name}-账号${nickname}\n${notice} \n\n ${noticemsg}`)
     }
 }
 
@@ -103,6 +104,7 @@ return new Promise((resolve, reject) => {
         let nickname = userinfo.username
         let today_gold = userinfo.day_jinbi
         notice += '🎉账号: 996'+userinfo.username+'\n'+'🎉当前金币: '+userinfo.jinbi+'🎉今日金币: '+userinfo.day_jinbi+'💰 约'+userinfo.money+'元💸\n'
+        var noticemsg = '🎉账号: 996'+userinfo.username+'\n'+'🎉当前金币: '+userinfo.jinbi+'🎉今日金币: '+userinfo.day_jinbi+'💰 约'+userinfo.money+'元💸\n'
     }else{
         notice += '⚠️异常原因: '+userinfo.msg+'\n'
            }
@@ -242,25 +244,26 @@ return new Promise((resolve, reject) => {
 }
    $.get(gualist,async(error, response, data) =>{
     $.log('\n🔔开始查询刮刮卡ID\n')
-    //$.log('————guaList————\n'+data)
+    $.log('————guaList————\n'+data)
      const guaid = JSON.parse(data)
-      if(guaid.data.ka > 0){
-        for (guaId of guaid.data.list){
-          if(guaId.is_suo == 0){
-            GID = guaId.id
-            $.log('\n🔔查询刮刮卡ID成功,5s后开始查询刮卡签名\n')
-            $.log('\nGID: '+GID+'\n')
-            await $.wait(5000)
-            await guaDet()
+     if(guaid.code == 200){
+       if(guaid.data.ka > 0){
+         for (guaId of guaid.data.list){
+           if(guaId.is_suo == 0){
+             GID = guaId.id
+             $.log('\n🔔查询刮刮卡ID成功,5s后开始查询刮卡签名\n')
+             $.log('\nGID: '+GID+'\n')
+             await $.wait(5000)
+             await guaDet()
+            }
            }
-          }
-        }
-         else{
-          $.log('\n⚠️刮刮卡已用完,请明天再刮吧！\n')
-          await checkWaterNum()
-        }
+         }
+     }else{
+      $.log('\n⚠️刮刮卡已用完,请明天再刮吧！\n')
+      await checkWaterNum()
+      }
 
-          resolve()
+      resolve()
     })
    })
 }
@@ -631,33 +634,35 @@ return new Promise((resolve, reject) => {
 }
    $.post(checkhomejin,async(error, response, data) =>{
      const checkhomejb = JSON.parse(data)
-      //$.log('————checkHomeJin————\n'+data)
+      $.log('————checkHomeJin————\n'+data)
      $.log('\n🔔开始查询首页金币红包状态\n')
-     if(checkhomejb.lucky_jinbi2 != 0){
-          $.log('\n🔔首页金币2可领取\n')
-          //$.log('\n🔔等待'+(checkhomejb.xuanfu_time+5)+'s领取首页金币')
-          //await $.wait(checkhomejb.xuanfu_time*1000+5000)
-          await $.wait(6000)
-          await homeJin2()
-        }else if(checkhomejb.lucky_jinbi != 0){
-          $.log('\n🔔首页金币1可领取\n')
-          await $.wait(10000)
-          await homeJin1()
-        }else if(checkhomejb.xuanfu_st != 2 ){
-          $.log('\n🔔首页红包可领取\n')
-          await $.wait(6000)
-          await checkRedBagId()
-          //$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
-          //await $.wait(checkhomejb.jindan_djs*1000+5000)
-        }else if(checkhomejb.lucky_jinbi2 == 0 ){
-          $.log('\n🔔首页金币、红包领取完成。\n')
-          $.log('\n🔔开始查询金蛋、盒子状态\n')
-          await $.wait(6000)
-          await checkGoldtime()
-        }else {
-          await checkWaterNum()
-        }
-          resolve()
+     if (checkhomejb.code == 200){
+       if(checkhomejb.lucky_jinbi2 != 0 ){
+         $.log('\n🔔首页金币2可领取\n')
+         //$.log('\n🔔等待'+(checkhomejb.xuanfu_time+5)+'s领取首页金币')
+         //await $.wait(checkhomejb.xuanfu_time*1000+5000)
+         await $.wait(6000)
+         await homeJin2()
+       }else if(checkhomejb.lucky_jinbi != 0){
+         $.log('\n🔔首页金币1可领取\n')
+         await $.wait(10000)
+         await homeJin1()
+       }else if(checkhomejb.xuanfu_st != 2 ){
+         $.log('\n🔔首页红包可领取\n')
+         await $.wait(6000)
+         await checkRedBagId()
+         //$.log('\n🔔等待'+(checkhomejb.jindan_djs+5)+'s领取金蛋奖励')
+         //await $.wait(checkhomejb.jindan_djs*1000+5000)
+       }else if(checkhomejb.lucky_jinbi2 == 0 ){
+         $.log('\n🔔首页金币、红包领取完成。\n')
+         $.log('\n🔔开始查询金蛋、盒子状态\n')
+         await $.wait(6000)
+         await checkGoldtime()
+       }else {
+         await checkWaterNum()
+       }
+     }
+      resolve()
     })
    })
   }
@@ -1099,9 +1104,10 @@ return new Promise((resolve, reject) => {
           }else{
           $.log('\n⚠️阅读失败: 今日阅读已上限\n')
           await checkLuckNum()
-         }}else{
-          $.log('\n⚠️查询新闻ID失败:'+newsid.msg+'\n')
-           }
+         }
+     }else{
+        $.log('\n⚠️查询新闻ID失败:'+newsid.msg+'\n')
+         }
           resolve()
     })
    })
