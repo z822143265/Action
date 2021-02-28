@@ -41,14 +41,14 @@ jobs:
         with:
           node-version: 12.x
       - name: npm install
-        if: env.BYD_CK
+        if: env.BYD_CK1
         run: |
           cd ~/Scripts
           npm install -g npm
           npm update
 
       - name: '运行 【BYD】'
-        if: env.BYD_CK
+        if: env.BYD_CK1
         run: |
           cd ~/Scripts
           node Task/BYD.js
