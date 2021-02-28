@@ -45,17 +45,16 @@ $.msg($.name,"开始🎉🎉🎉")
       //await cashCheck()
       await userInfo()
       await checkHomeJin()
-      //await signIn()  明天获取url11
+      //await signIn()  明天获取url12
       //await checkWaterNum() //喝水ok
       //await zaoWanDkInfo() //早晚打卡ok
       //await sleepStatus()   晚上再测试
-      await clickTaskStatus()  //任务赚赚界面==
+      await clickTaskStatus()  //任务赚赚界面ok
       //await watchTaskStatus()  ==
       //await helpStatus() ok
       //await getNewsId() //阅读新闻+抽奖box ok
-      //await checkWaterNum() ok
       //await getQuestionId()  //未发现这个模块
-      await guaList()
+      //await guaList()  //刮卡ok
       await checkWaterNum()
       await showmsg()
 
