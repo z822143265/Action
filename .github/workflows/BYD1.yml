@@ -47,7 +47,7 @@ jobs:
           npm update
 
       - name: '运行 【BYD1】'
-        if: env.BBB_CK1
+        if: env.BYD_CK1
         run: |
           cd ~/Scripts
           node Task/BYD.js
@@ -55,7 +55,7 @@ jobs:
           BYD_CK: ${{ secrets.BYD_CK1 }}
 
       - name: '运行 【BYD2】'
-        if: env.BBB_CK2
+        if: env.BYD_CK2
         run: |
           cd ~/Scripts
           node Task/BYD.js
@@ -63,7 +63,7 @@ jobs:
           BYD_CK: ${{ secrets.BYD_CK2 }}
 
       - name: '运行 【BYD3】'
-        if: env.BBB_CK3
+        if: env.BYD_CK3
         run: |
           cd ~/Scripts
           node Task/BYD.js
