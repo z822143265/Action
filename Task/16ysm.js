@@ -323,7 +323,7 @@ let url = {
           //console.log(data)
     const result = JSON.parse(data)
         if(result.errcode == 0){
-         //console.log(data)
+         console.log(data)
         console.log('\n云扫码获取key回执:成功🌝 开始 循环观看💦')
       if(result.data.link === undefined){
        console.log('\n🧼来自肥皂的提示:没有匹配到key'+result.data.msg)
