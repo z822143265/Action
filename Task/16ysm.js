@@ -56,6 +56,11 @@ https://raw.githubusercontent.com/age174/-/main/feizao.box.json
 hostname = .*.top
 
 
+
+  if (typeof $request !== "undefined") {
+    await ysmck()
+  }
+
 */
 
 
@@ -174,9 +179,6 @@ else {ysmurlArr.push($.getdata('ysmurl'))
 
 !(async () => {
 
-  if (typeof $request !== "undefined") {
-    await ysmck()
-  }
   console.log(`------------- 共${ysmhdArr.length}个账号-------------\n`)
     for (let i = 0; i < ysmhdArr.length; i++) {
       if (ysmhdArr[i]) {
@@ -295,7 +297,7 @@ let url = {
 function ysm1(timeout = 0) {
   return new Promise((resolve) => {
     setTimeout( ()=>{
-      if (typeof $.getdata('ysmhd') === "undefined") {
+      if (ysmhd === "undefined") {
         $.msg($.name,"",'请先获取云扫码数据!😓',)
         $.done()
       }
