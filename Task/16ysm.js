@@ -71,16 +71,97 @@ let ysmtx = $.getdata('ysmtx')
 let ysmkey = ''
 
 
-!(async () => {
-  if (typeof $request !== "undefined") {
-    await ysmck()
+if ($.isNode()) {
 
-  } else {ysmurlArr.push($.getdata('ysmurl'))
-    ysmhdArr.push($.getdata('ysmhd'))
-    ysmbodyArr.push($.getdata('ysmbody'))
-    ysm2bodyArr.push($.getdata('ysm2body'))
-    ysmtxArr.push($.getdata('ysmtx'))
-    let ysmcount = ($.getval('ysmcount') || '1');
+    if (process.env.YSMURL&& process.env.YSMURL.indexOf('#') > -1) {
+     ysmurl = process.env.YSMURL.split('#');
+     console.log(`您選擇的是用"#"隔開\n`)
+    }
+    else if (process.env.YSMURLYSMURL && process.env.YSMURL.indexOf('\n') > -1) {
+     ysmurl = process.env.YSMURL.split('\n');
+     console.log(`您選擇的是用換行隔開\n`)
+    } else {
+     ysmurl = process.env.YSMURL.split()
+    };
+    Object.keys(ysmurl).forEach((item) => {
+          if (ysmurl[item]) {
+            ysmurlArr.push(ysmurl[item])
+          }
+      });
+
+    if (process.env.YSMHD&& process.env.YSMHD.indexOf('#') > -1) {
+     ysmhd = process.env.YSMHD.split('#');
+     console.log(`您選擇的是用"#"隔開\n`)
+    }
+    else if (process.env.YSMHD && process.env.YSMHD.indexOf('\n') > -1) {
+     ysmhd = process.env.YSMHD.split('\n');
+     console.log(`您選擇的是用換行隔開\n`)
+    } else {
+     ysmhd = process.env.YSMHD.split()
+    };
+    Object.keys(ysmhd).forEach((item) => {
+          if (ysmhd[item]) {
+            ysmhdArr.push(ysmhd[item])
+          }
+      });
+
+    if (process.env.YSMBODY&& process.env.YSMBODY.indexOf('#') > -1) {
+     ysmbody = process.env.YSMBODY.split('#');
+     console.log(`您選擇的是用"#"隔開\n`)
+    }
+    else if (process.env.YSMBODY && process.env.YSMBODY.indexOf('\n') > -1) {
+     ysmbody = process.env.YSMBODY.split('\n');
+     console.log(`您選擇的是用換行隔開\n`)
+    } else {
+     ysmbody = process.env.YSMBODY.split()
+    };
+    Object.keys(ysmbody).forEach((item) => {
+          if (ysmbody[item]) {
+            ysmbodyArr.push(ysmbody[item])
+          }
+      });
+
+    if (process.env.YSM2BODY&& process.env.YSM2BODY.indexOf('#') > -1) {
+     ysm2body = process.env.YSM2BODY.split('#');
+     console.log(`您選擇的是用"#"隔開\n`)
+    }
+    else if (process.env.YSM2BODY && process.env.YSM2BODY.indexOf('\n') > -1) {
+     ysm2body = process.env.YSM2BODY.split('\n');
+     console.log(`您選擇的是用換行隔開\n`)
+    } else {
+     ysm2body = process.env.YSM2BODY.split()
+    };
+    Object.keys(ysm2body).forEach((item) => {
+          if (ysm2body[item]) {
+            ysm2bodyArr.push(ysm2body[item])
+          }
+      });
+
+    if (process.env.YSMTX&& process.env.YSMTX.indexOf('#') > -1) {
+     ysmtx = process.env.YSMTX.split('#');
+     console.log(`您選擇的是用"#"隔開\n`)
+    }
+    else if (process.env.YSMTX && process.env.YSMTX.indexOf('\n') > -1) {
+     ysmtx = process.env.YSMTX.split('\n');
+     console.log(`您選擇的是用換行隔開\n`)
+    } else {
+     ysmtx = process.env.YSMTX.split()
+    };
+    Object.keys(ysmtx).forEach((item) => {
+          if (ysmtx[item]) {
+            ysmtxArr.push(ysmtx[item])
+          }
+      });
+    console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
+    console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
+}
+else {ysmurlArr.push($.getdata('ysmurl'))
+  ysmhdArr.push($.getdata('ysmhd'))
+  ysmbodyArr.push($.getdata('ysmbody'))
+  ysm2bodyArr.push($.getdata('ysm2body'))
+  ysmtxArr.push($.getdata('ysmtx'))
+  let ysmcount = ($.getval('ysmcount') || '1');
+
   for (let i = 2; i <= ysmcount; i++) {
     ysmurlArr.push($.getdata(`ysmurl${i}`))
     ysmhdArr.push($.getdata(`ysmhd${i}`))
@@ -88,6 +169,13 @@ let ysmkey = ''
     ysm2bodyArr.push($.getdata(`ysm2body${i}`))
     ysmtxArr.push($.getdata(`ysmtx${i}`))
   }
+}
+
+if (typeof $request !== "undefined") {
+  await ysmck()
+}
+
+!(async () => {
     console.log(`------------- 共${ysmhdArr.length}个账号-------------\n`)
       for (let i = 0; i < ysmhdArr.length; i++) {
         if (ysmhdArr[i]) {
@@ -103,7 +191,7 @@ let ysmkey = ''
 
   }
   //await ysmtx();
-}}
+}
 
 })()
   .catch((e) => $.logErr(e))
@@ -155,7 +243,7 @@ let url = {
         if(result.data.last_gold >= 3000){
     console.log('\n检测到当前金额可提现，前去执行提现')
 await ysmdh();
-}       await $.wait(2000);
+}       await $.wait(6000);
         await ysm1();
 
 } else {
@@ -189,7 +277,7 @@ let url = {
     //const result = JSON.parse(data)
        console.log('\n云扫码key提交成功,即将开始领取阅读奖励')
 
-        await $.wait(8000);
+        await $.wait(11200);
         await ysm3();
 
         }} catch (e) {
