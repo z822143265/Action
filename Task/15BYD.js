@@ -23,7 +23,7 @@ var  homeJinStr,homeJinStr,redBagStr,goltimestr,boxtimestr,goldEggStr,goldEggId,
 var renwu,tasktaskid,taskclickStr,waterNum,waterSpStr,sleepStr,sleepId,box,noticemsg,signInStr
 
 if ($.isNode()) {
-  
+
       if (process.env.BYD_CK&& process.env.BYD_CK.indexOf('#') > -1) {
        CookieVal = process.env.BYD_CK.split('#');
        console.log(`您選擇的是用"#"隔開\n`)
@@ -32,7 +32,7 @@ if ($.isNode()) {
        CookieVal = process.env.BYD_CK.split('\n');
        console.log(`您選擇的是用換行隔開\n`)
       } else {
-       //CookieVal = process.env.BYD_CK.split()
+       CookieVal = process.env.BYD_CK.split()
       };
       console.log(`============ 脚本执行-国际标准时间(UTC)：${new Date().toLocaleString()}  =============\n`)
       console.log(`============ 脚本执行-北京时间(UTC+8)：${new Date(new Date().getTime() + 8 * 60 * 60 * 1000).toLocaleString()}  =============\n`)
