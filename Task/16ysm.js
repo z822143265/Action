@@ -190,7 +190,8 @@ else {ysmurlArr.push($.getdata('ysmurl'))
         ysmtx = ysmtxArr[i];
         $.index = i + 1;
         console.log(`\n开始【云扫码${$.index}】`)
-  await ysm1();
+        await ysm1();
+        await $.wait(10000);
 
   }
   //await ysmtx();
@@ -310,6 +311,7 @@ function ysm1(timeout = 0) {
 //console.log(ysmbody)
 
 
+ console.log('\nysmurl：'+ysmurl)
 let url = {
         url : "http:"+ysmurl.match(/http:(.*?)yunonline/)[1]+"yunonline/v1/task",
         headers : JSON.parse(ysmhd),
